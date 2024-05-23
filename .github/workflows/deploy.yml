@@ -30,4 +30,4 @@ jobs:
           PASSPHRASE: ''
           script: |
             cd /root/aztroTurbo
-            git pull https://${{secrets.PAT}}@github.com/aztroTurbo.git main
+            git pull https://${{secrets.PAT}}@github.com/nberthou/aztroTurbo.git main
