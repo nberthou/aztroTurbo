@@ -1,0 +1,29 @@
+{
+  "name": "twitch_bot",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx --watch main.ts",
+    "build": "esbuild main.ts --bundle --platform=node --outfile=dist/main.js",
+    "start": "node dist/main.js",
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "@repo/typescript-config": "*",
+    "@twurple/api": "^7.1.0",
+    "@twurple/auth": "^7.1.0",
+    "@twurple/chat": "^7.1.0",
+    "@twurple/easy-bot": "^7.1.0",
+    "@twurple/eventsub": "^5.3.4",
+    "@twurple/eventsub-ws": "^7.1.0",
+    "@twurple/pubsub": "^7.1.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "esbuild": "^0.21.3",
+    "tsx": "^4.10.5",
+    "typescript": "^5.4.5"
+  }
+}
