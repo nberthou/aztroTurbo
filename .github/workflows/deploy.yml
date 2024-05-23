@@ -31,3 +31,6 @@ jobs:
           script: |
             cd /root/aztroTurbo
             git pull https://${{secrets.PAT}}@github.com/nberthou/aztroTurbo.git main
+            yarn
+            cd apps/twitch_bot && yarn
+            cd ../discord_bot && yarn
