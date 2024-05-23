@@ -28,4 +28,6 @@ jobs:
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
           PASSPHRASE: ''
-          script: ls
+          script: |
+            cd /root/aztroTurbo
+            git pull https://github.com/nberthou/aztroTurbo.git
