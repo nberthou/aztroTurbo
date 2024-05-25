@@ -10,6 +10,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@repo/db": "*",
     "@repo/typescript-config": "*",
     "discord.js": "^14.15.2",
     "dotenv": "^16.4.5"

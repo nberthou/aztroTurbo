@@ -1,12 +1,14 @@
 {
-  "name": "db",
+  "name": "@repo/db",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "prisma": "^5.14.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@prisma/client": "^5.14.0",
     "@repo/typescript-config": "*"
   }
 }
