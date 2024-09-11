@@ -1,12 +1,11 @@
 {
-  "name": "@repo/types",
+  "name": "@repo/wallet",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {
-    "typescript": "^5.4.5"
-  },
   "dependencies": {
+    "@repo/db": "*",
+    "@repo/types": "*",
     "@repo/typescript-config": "*"
   }
 }

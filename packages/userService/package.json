@@ -1,0 +1,13 @@
+{
+  "name": "@repo/user-service",
+  "packageManager": "yarn@4.2.2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@repo/db": "*",
+    "@repo/types": "*",
+    "@repo/typescript-config": "*",
+    "@repo/wallet": "*"
+  }
+}

@@ -1,0 +1,53 @@
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  Colors,
+  CommandInteraction,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from 'discord.js';
+import { getUserByDiscordUsername } from '@repo/db/user/discord';
+import { getEmoji } from '../../utils';
+
+module.exports = {
+  data: new SlashCommandBuilder().setName('stars').setDescription('Commande wallet stars'),
+
+  async execute(interaction: CommandInteraction) {
+    const { displayName, id: userId } = interaction.user;
+    const currentUser = await getUserByDiscordUsername(userId);
+
+    const embed = new EmbedBuilder().setColor(Colors.Gold).setTitle(`Les étoiles de ${displayName}`);
+
+    if (!currentUser) {
+      embed.setDescription(`${displayName}, tu n'es pas enregistré sur le bot !`);
+    } else {
+      const starCount = currentUser.stars;
+      const starEmoji = getEmoji('azgoldStar') || getEmoji('smiley');
+
+      const pluriel = starCount > 1 ? 's' : '';
+      embed.setDescription(`${displayName}, tu as ${starCount} étoile${pluriel} ! ${starEmoji}`);
+
+      // if (!currentUser.twitchUsername) {
+      //   embed.addFields({
+      //     name: "Ton compte Twitch n'est pas lié !",
+      //     value: 'Tu peux cliquer sur le bouton ci-dessous pour lier ton compte Twitch et synchroniser tes étoiles.',
+      //   });
+      // }
+    }
+
+    const linkButton = new ButtonBuilder()
+      .setStyle(ButtonStyle.Link)
+      .setLabel('Lier mon compte Twitch (pas encore disponible)')
+      .setURL('https://twitch.tv/')
+      .setDisabled(true);
+
+    const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(linkButton);
+
+    await interaction.reply({
+      embeds: [embed],
+      // components: currentUser?.twitchUsername ? [] : [actionRow],
+      ephemeral: true,
+    });
+  },
+};

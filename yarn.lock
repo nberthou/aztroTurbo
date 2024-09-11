@@ -687,9 +687,39 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@repo/types@npm:*, @repo/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@repo/types@workspace:packages/types"
+  dependencies:
+    "@repo/typescript-config": "npm:*"
+    typescript: "npm:^5.4.5"
+  languageName: unknown
+  linkType: soft
+
 "@repo/typescript-config@npm:*, @repo/typescript-config@workspace:packages/typescript-config":
   version: 0.0.0-use.local
   resolution: "@repo/typescript-config@workspace:packages/typescript-config"
+  languageName: unknown
+  linkType: soft
+
+"@repo/user-service@npm:*, @repo/user-service@workspace:packages/userService":
+  version: 0.0.0-use.local
+  resolution: "@repo/user-service@workspace:packages/userService"
+  dependencies:
+    "@repo/db": "npm:*"
+    "@repo/types": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@repo/wallet": "npm:*"
+  languageName: unknown
+  linkType: soft
+
+"@repo/wallet@npm:*, @repo/wallet@workspace:packages/wallet":
+  version: 0.0.0-use.local
+  resolution: "@repo/wallet@workspace:packages/wallet"
+  dependencies:
+    "@repo/db": "npm:*"
+    "@repo/types": "npm:*"
+    "@repo/typescript-config": "npm:*"
   languageName: unknown
   linkType: soft
 
@@ -1393,7 +1423,10 @@ __metadata:
   resolution: "discord_bot@workspace:apps/discord_bot"
   dependencies:
     "@repo/db": "npm:*"
+    "@repo/types": "npm:*"
     "@repo/typescript-config": "npm:*"
+    "@repo/user-service": "npm:*"
+    "@repo/wallet": "npm:*"
     "@types/node": "npm:^20.12.12"
     discord.js: "npm:^14.15.2"
     dotenv: "npm:^16.4.5"
@@ -3123,15 +3156,6 @@ __metadata:
   checksum: 10c0/74253d7dc488eb28b6b2711cf31f5a9dcefc9c41b0681fd1c178ed0a1681b4468581a3626d39cd4df7aee3d3927ab62be06aa9ca74e5baf81827f61641445b77
   languageName: node
   linkType: hard
-
-"types@workspace:packages/types":
-  version: 0.0.0-use.local
-  resolution: "types@workspace:packages/types"
-  dependencies:
-    "@repo/typescript-config": "npm:*"
-    typescript: "npm:^5.4.5"
-  languageName: unknown
-  linkType: soft
 
 "typescript@npm:^5.4.5":
   version: 5.4.5

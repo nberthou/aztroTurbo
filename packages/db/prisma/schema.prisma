@@ -12,8 +12,8 @@ datasource db {
 
 model User {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  twitchUsername  String?
-  discordUsername String?
+  twitchId  String?
+  discordId String?
   stars           Int      @default(0)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @default(now()) @updatedAt
