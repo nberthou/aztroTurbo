@@ -4,14 +4,14 @@ import { getUserByDiscordUsername, createDiscordUser } from '@repo/db/user/disco
 
 export class UserService {
   public discordId?: string | null;
-  public wallet: Wallet | null;
+  public wallet: Wallet;
   public updatedAt: Date;
   public id: string;
 
   constructor(discordId?: string | null) {
     this.discordId = discordId;
     this.id = '';
-    this.wallet = null;
+    this.wallet = new Wallet('');
     this.updatedAt = new Date();
   }
 
@@ -19,7 +19,7 @@ export class UserService {
     const dbUser = await UserService.initUser(discordId);
     const user = new UserService(discordId);
     user.id = dbUser.id;
-    user.wallet = new Wallet(dbUser.id);
+    user.wallet = await Wallet.create(dbUser.id);
     user.updatedAt = dbUser.updatedAt;
     return user;
   }

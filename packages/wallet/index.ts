@@ -10,11 +10,17 @@ export class Wallet {
     this.userId = userId;
     this.stars = 1;
     this.walletType = walletType;
-    this.initStars();
   }
 
-  private async initStars(): Promise<void> {
-    this.stars = await getStarsFromWallet(this.userId);
+  public static async create(userId: string): Promise<Wallet> {
+    const dbStars = await Wallet.initWallet(userId);
+    const wallet = new Wallet(userId);
+    wallet.stars = dbStars;
+    return wallet;
+  }
+
+  private static async initWallet(userId: string) {
+    return await getStarsFromWallet(userId);
   }
 
   public async addStars(amount: number): Promise<void> {
