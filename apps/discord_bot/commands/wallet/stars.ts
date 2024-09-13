@@ -7,7 +7,7 @@ import {
   EmbedBuilder,
   SlashCommandBuilder,
 } from 'discord.js';
-import { getUserByDiscordUsername } from '@repo/db/user/discord';
+import { getUserByDiscordId } from '@repo/db/user/discord';
 import { getEmoji } from '../../utils';
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
 
   async execute(interaction: CommandInteraction) {
     const { displayName, id: userId } = interaction.user;
-    const currentUser = await getUserByDiscordUsername(userId);
+    const currentUser = await getUserByDiscordId(userId);
 
     const embed = new EmbedBuilder().setColor(Colors.Gold).setTitle(`Les étoiles de ${displayName}`);
 

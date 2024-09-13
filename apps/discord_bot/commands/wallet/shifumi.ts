@@ -62,7 +62,7 @@ module.exports = {
       return;
     }
 
-    const user = await UserService.create(interaction.user.id);
+    const user = await UserService.create(interaction.user.id, 'DISCORD');
 
     if (user.wallet.stars < starsAmount) {
       await modalInteraction.editReply({ embeds: [createErrorEmbed("Tu n'as pas assez d'étoiles !")] });

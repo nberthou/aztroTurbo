@@ -3091,6 +3091,7 @@ __metadata:
   dependencies:
     "@repo/db": "npm:*"
     "@repo/typescript-config": "npm:*"
+    "@repo/user-service": "npm:*"
     "@twurple/api": "npm:^7.1.0"
     "@twurple/auth": "npm:^7.1.0"
     "@twurple/chat": "npm:^7.1.0"

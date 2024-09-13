@@ -1,34 +1,37 @@
 import { Wallet } from '@repo/wallet';
-import { WalletType } from '@repo/types';
-import { getUserByDiscordUsername, createDiscordUser } from '@repo/db/user/discord';
+import { getUserByDiscordId, createDiscordUser } from '@repo/db/user/discord';
+import { createTwitchUser, getUserByTwitchId } from '@repo/db/user/twitch';
 
 export class UserService {
-  public discordId?: string | null;
+  public readonly platformId: string | null;
+  public readonly platform: 'DISCORD' | 'TWITCH';
   public wallet: Wallet;
   public updatedAt: Date;
   public id: string;
 
-  constructor(discordId?: string | null) {
-    this.discordId = discordId;
-    this.id = '';
-    this.wallet = new Wallet('');
-    this.updatedAt = new Date();
+  private constructor(platformId: string | null, platform: 'DISCORD' | 'TWITCH', id: string, wallet: Wallet, updatedAt: Date) {
+    this.platformId = platformId;
+    this.platform = platform;
+    this.id = id;
+    this.wallet = wallet;
+    this.updatedAt = updatedAt;
   }
 
-  public static async create(discordId: string | null) {
-    const dbUser = await UserService.initUser(discordId);
-    const user = new UserService(discordId);
-    user.id = dbUser.id;
-    user.wallet = await Wallet.create(dbUser.id);
-    user.updatedAt = dbUser.updatedAt;
-    return user;
+  public static async create(platformId: string | null, platform: 'DISCORD' | 'TWITCH'): Promise<UserService> {
+    const dbUser = await UserService.initUser(platformId, platform);
+    const wallet = await Wallet.create(dbUser.id);
+    return new UserService(platformId, platform, dbUser.id, wallet, dbUser.updatedAt);
   }
 
-  private static async initUser(discordId: string | null) {
-    let dbUser = await getUserByDiscordUsername(discordId ?? '');
-    if (!dbUser) {
-      return await createDiscordUser(discordId!);
+  private static async initUser(platformId: string | null, platform: 'DISCORD' | 'TWITCH') {
+    if (!platformId) {
+      throw new Error("L'ID de la plateforme ne peut pas être null");
     }
-    return dbUser;
+
+    const getUser = platform === 'DISCORD' ? getUserByDiscordId : getUserByTwitchId;
+    const createUser = platform === 'DISCORD' ? createDiscordUser : createTwitchUser;
+
+    const dbUser = await getUser(platformId);
+    return dbUser ?? (await createUser(platformId));
   }
 }

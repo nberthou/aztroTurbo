@@ -1,20 +1,20 @@
 import { prismaClient } from '../utils';
 
-export function getUserByDiscordId(discordId?: string) {
-  if (!discordId) {
+export function getUserByTwitchId(twitchId?: string) {
+  if (!twitchId) {
     return null;
   }
   return prismaClient.user.findFirst({
     where: {
-      discordId,
+      twitchId,
     },
   });
 }
 
-export function createDiscordUser(discordId: string) {
+export function createTwitchUser(twitchId: string) {
   return prismaClient.user.create({
     data: {
-      discordId,
+      twitchId,
       stars: 1,
     },
   });

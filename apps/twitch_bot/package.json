@@ -12,6 +12,7 @@
   "dependencies": {
     "@repo/db": "*",
     "@repo/typescript-config": "*",
+    "@repo/user-service": "*",
     "@twurple/api": "^7.1.0",
     "@twurple/auth": "^7.1.0",
     "@twurple/chat": "^7.1.0",
