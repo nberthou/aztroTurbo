@@ -3089,6 +3089,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "twitch_bot@workspace:apps/twitch_bot"
   dependencies:
+    "@repo/db": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@twurple/api": "npm:^7.1.0"
     "@twurple/auth": "npm:^7.1.0"

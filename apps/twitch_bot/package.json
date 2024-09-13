@@ -10,6 +10,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@repo/db": "*",
     "@repo/typescript-config": "*",
     "@twurple/api": "^7.1.0",
     "@twurple/auth": "^7.1.0",

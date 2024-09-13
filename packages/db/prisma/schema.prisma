@@ -69,3 +69,12 @@ model Pokemon {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
+model TwitchToken {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String @unique
+  accessToken           String
+  refreshToken          String?
+  obtainmentTimestamp   Int
+  scope                 Json?
+}
+
