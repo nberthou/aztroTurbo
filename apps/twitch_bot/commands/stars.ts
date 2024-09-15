@@ -1,14 +1,9 @@
 import { UserService } from '@repo/user-service';
 import { TwitchBot } from '../main';
 import { ChatClient } from '@twurple/chat';
+import { CommandProps } from '../handlers/message';
 
-export async function handleStarsCommand(
-  userId: string,
-  message: string,
-  chatClient: ChatClient,
-  displayName: string,
-  channel: string
-): Promise<void> {
+export async function handleStarsCommand({ userId, message, chatClient, displayName, channel }: CommandProps): Promise<void> {
   const currentUser = await UserService.create(userId, 'TWITCH');
   const { wallet } = currentUser;
 
