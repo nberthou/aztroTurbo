@@ -1451,7 +1451,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord_bot@workspace:apps/discord_bot":
+"discord_bot@npm:*, discord_bot@workspace:apps/discord_bot":
   version: 0.0.0-use.local
   resolution: "discord_bot@workspace:apps/discord_bot"
   dependencies:
@@ -3142,6 +3142,7 @@ __metadata:
     "@twurple/eventsub-ws": "npm:^7.1.0"
     "@twurple/pubsub": "npm:^7.1.0"
     "@types/node": "npm:^20.12.12"
+    discord_bot: "npm:*"
     dotenv: "npm:^16.4.5"
     esbuild: "npm:^0.21.3"
     tsx: "npm:^4.10.5"

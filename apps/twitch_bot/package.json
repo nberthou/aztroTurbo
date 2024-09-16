@@ -21,6 +21,7 @@
     "@twurple/eventsub": "^5.3.4",
     "@twurple/eventsub-ws": "^7.1.0",
     "@twurple/pubsub": "^7.1.0",
+    "discord_bot": "*",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {

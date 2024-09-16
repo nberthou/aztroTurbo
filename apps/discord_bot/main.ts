@@ -8,6 +8,7 @@ import {
   REST,
   Routes,
   SlashCommandBuilder,
+  TextChannel,
 } from 'discord.js';
 import { getAllCommands } from '@repo/db/command';
 import path from 'path';
@@ -127,6 +128,13 @@ export class DiscordBot {
     for (const file of eventFiles) {
       const event = require(path.join(eventsPath, file));
       DiscordBot.client.on(event.name, event.execute);
+    }
+  }
+
+  static async sendMessageToAnnouncementsChannel(channelId: string, message: string) {
+    const channel = this.client.channels.cache.get(channelId);
+    if (channel?.isTextBased()) {
+      await (channel as TextChannel).send(message);
     }
   }
 }

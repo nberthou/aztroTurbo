@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { handleMessages } from './handlers/message';
 import { ApiClient } from '@twurple/api';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
+import { DiscordBot } from 'discord_bot';
 
 dotenv.config();
 
@@ -42,8 +43,8 @@ export class TwitchBot {
 
     TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
-
     try {
+      console.log('token', await TwitchBot.apiClient.getTokenInfo());
       await TwitchBot.listener.start();
       console.log('EventSubWsListener démarré avec succès');
     } catch (error) {
@@ -55,7 +56,31 @@ export class TwitchBot {
     try {
       await this.initializeClients();
       await handleMessages(this.chatClient);
-      await this.chatClient.connect();
+
+      TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
+        try {
+          const stream = await handler.getStream();
+          const currentGame = stream?.gameName || 'un jeu inconnu';
+          const message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va commencer bientôt ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
+
+          await DiscordBot.sendMessageToAnnouncementsChannel(process.env.DISCORD_ANNOUNCEMENT_CHANNEL_ID!, message);
+          await this.chatClient.say(
+            this.channelName,
+            `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez Azgold ! azgoldDance`
+          );
+        } catch (error) {
+          console.error("Erreur lors de la gestion de l'événement onStreamOnline:", error);
+        }
+      });
+
+      TwitchBot.listener.onStreamOffline(this.channelId, async () => {
+        try {
+          await this.chatClient.say(this.channelName, 'Le stream est terminé ! A bientôt pour un nouveau stream ! azgoldLove');
+        } catch (error) {
+          console.error("Erreur lors de la gestion de l'événement onStreamOffline:", error);
+        }
+      });
+      this.chatClient.connect();
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }

@@ -25,14 +25,25 @@ export class TokenManager {
   public async initialize(name: string) {
     const tokens = await getTokenByName(name);
     if (tokens) {
-      await this.authProvider.addUserForToken(
+      await this.authProvider.addUser(
+        process.env.TWITCH_CHANNEL_ID!,
         {
           accessToken: tokens.accessToken,
           refreshToken: tokens.refreshToken,
           expiresIn: 0,
           obtainmentTimestamp: tokens.obtainmentTimestamp,
         },
-        ['chat', 'channel:read:redemptions']
+        ['chat', 'channel:read:redemptions', 'moderator:manange:banned_user', 'moderator:read:followers']
+      );
+      await this.authProvider.addUser(
+        process.env.TWITCH_BOT_ID!,
+        {
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
+          expiresIn: 0,
+          obtainmentTimestamp: tokens.obtainmentTimestamp,
+        },
+        ['chat', 'channel:read:redemptions', 'moderator:manange:banned_user', 'moderator:read:followers']
       );
     }
   }
