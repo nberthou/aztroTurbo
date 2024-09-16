@@ -4,6 +4,7 @@ import { UserService } from '@repo/user-service';
 import { handleStarsCommand } from '../commands/stars';
 import { handleCommandsListCommand } from '../commands/commands';
 import { handleCooldownCommand } from '../commands/cooldown';
+import { handleDeathCounterCommand } from '../commands/deathCounter';
 
 export type CommandProps = {
   userId: string;
@@ -24,6 +25,7 @@ const customCommands: Record<string, Function> = {
   stars: handleStarsCommand,
   commands: handleCommandsListCommand,
   cooldown: handleCooldownCommand,
+  deathCounter: handleDeathCounterCommand,
 };
 
 export async function handleMessages(chatClient: ChatClient): Promise<void> {
