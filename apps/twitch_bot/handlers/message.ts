@@ -6,6 +6,7 @@ import { handleCommandsListCommand } from '../commands/commands';
 import { handleCooldownCommand } from '../commands/cooldown';
 import { handleDeathCounterCommand } from '../commands/deathCounter';
 import { handleFollowageCommand } from '../commands/followage';
+import { handleRouletteCommand } from '../commands/roulette';
 
 export type CommandProps = {
   userId: string;
@@ -28,6 +29,7 @@ const customCommands: Record<string, Function> = {
   cooldown: handleCooldownCommand,
   deathCounter: handleDeathCounterCommand,
   followage: handleFollowageCommand,
+  roulette: handleRouletteCommand,
 };
 
 export async function handleMessages(chatClient: ChatClient): Promise<void> {
@@ -49,7 +51,7 @@ export async function handleMessages(chatClient: ChatClient): Promise<void> {
       ),
       handleGreeting(chatClient, channel, userName, currentUser, chatMessage, message),
       handleFirstTimeChatter(chatClient, channel, chatMessage),
-      addStars(currentUser, userInfo.isSubscriber),
+      addStars(currentUser, userInfo.isSubscriber, message, userName),
     ]);
   });
 }
@@ -110,7 +112,8 @@ async function handleFirstTimeChatter(chatClient: ChatClient, channel: string, c
   }
 }
 
-async function addStars(currentUser: UserService, isSubscriber: boolean): Promise<void> {
+async function addStars(currentUser: UserService, isSubscriber: boolean, message: string, username: string): Promise<void> {
+  if (message.startsWith(PREFIX) || username.toLocaleLowerCase() === BOT_NAME) return;
   const timeSinceLastUpdate = Date.now() - currentUser.updatedAt.getTime();
   if (timeSinceLastUpdate > STARS_COOLDOWN) {
     await currentUser.wallet.addStars(isSubscriber ? 2 : 1);
