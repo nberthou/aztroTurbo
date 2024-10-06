@@ -58,7 +58,10 @@ export class DiscordBot {
     await this.registerCommands();
 
     await this.loadEvents();
-    DiscordBot.client.login(this.token);
+
+    if (this.token) {
+      DiscordBot.client.login(this.token);
+    }
   }
 
   private async loadCommands(): Promise<void> {
@@ -110,14 +113,16 @@ export class DiscordBot {
 
   private async registerCommands(): Promise<void> {
     const rest = new REST().setToken(this.token);
-    try {
-      console.log(`Actualisation des ${DiscordBot.client.commands!.size} commandes Discord.`);
-      const data: any = await rest.put(Routes.applicationGuildCommands(this.clientId, this.guildId), {
-        body: DiscordBot.client.commands!.map((command) => command.data.toJSON()),
-      });
-      console.log(`${data.length} commandes ont été actualisées.`);
-    } catch (error) {
-      console.error(error);
+    if (this.token) {
+      try {
+        console.log(`Actualisation des ${DiscordBot.client.commands!.size} commandes Discord.`);
+        const data: any = await rest.put(Routes.applicationGuildCommands(this.clientId, this.guildId), {
+          body: DiscordBot.client.commands!.map((command) => command.data.toJSON()),
+        });
+        console.log(`${data.length} commandes ont été actualisées.`);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 

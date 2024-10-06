@@ -44,7 +44,6 @@ export class TwitchBot {
     TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
     try {
-      console.log('token', await TwitchBot.apiClient.getTokenInfo());
       await TwitchBot.listener.start();
       console.log('EventSubWsListener démarré avec succès');
     } catch (error) {
@@ -61,12 +60,12 @@ export class TwitchBot {
         try {
           const stream = await handler.getStream();
           const currentGame = stream?.gameName || 'un jeu inconnu';
-          const message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va commencer bientôt ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
+          const message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
 
           await DiscordBot.sendMessageToAnnouncementsChannel(process.env.DISCORD_ANNOUNCEMENT_CHANNEL_ID!, message);
           await this.chatClient.say(
             this.channelName,
-            `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez Azgold ! azgoldDance`
+            `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez ${handler.broadcasterDisplayName} ! azgoldDance`
           );
         } catch (error) {
           console.error("Erreur lors de la gestion de l'événement onStreamOnline:", error);
