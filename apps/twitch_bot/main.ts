@@ -6,6 +6,7 @@ import { handleMessages } from './handlers/message';
 import { ApiClient } from '@twurple/api';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
 import { DiscordBot } from 'discord_bot';
+import { Bot } from '@twurple/easy-bot';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ export class TwitchBot {
   private pubSubClient!: PubSubClient;
   static apiClient: ApiClient;
   static listener: EventSubWsListener;
+  static bot: Bot;
 
   constructor() {
     this.clientId = process.env.TWITCH_CLIENT_ID ?? '';
@@ -45,6 +47,10 @@ export class TwitchBot {
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
     try {
       await TwitchBot.listener.start();
+      TwitchBot.bot = new Bot({
+        channels: [this.channelName],
+        authProvider: chatAuthProvider.getAuthProvider(),
+      });
       console.log('EventSubWsListener démarré avec succès');
     } catch (error) {
       console.error('Erreur lors du démarrage de EventSubWsListener:', error);
