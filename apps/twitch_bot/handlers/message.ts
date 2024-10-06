@@ -7,6 +7,7 @@ import { handleCooldownCommand } from '../commands/cooldown';
 import { handleDeathCounterCommand } from '../commands/deathCounter';
 import { handleFollowageCommand } from '../commands/followage';
 import { handleRouletteCommand } from '../commands/roulette';
+import { handleShifumiCommand } from '../commands/shifumi';
 
 export type CommandProps = {
   userId: string;
@@ -30,6 +31,7 @@ const customCommands: Record<string, Function> = {
   deathCounter: handleDeathCounterCommand,
   followage: handleFollowageCommand,
   roulette: handleRouletteCommand,
+  shifumi: handleShifumiCommand,
 };
 
 export async function handleMessages(chatClient: ChatClient): Promise<void> {
