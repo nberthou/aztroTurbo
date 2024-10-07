@@ -9,6 +9,7 @@ import { DiscordBot } from 'discord_bot';
 import { Bot } from '@twurple/easy-bot';
 import { handleRedemptions } from './handlers/redemption';
 import { handleCommunitySubs, handleResubs, handleSubGifts, handleSubs } from './handlers/subs';
+import { handleRaids } from './handlers/raid';
 
 dotenv.config();
 
@@ -68,6 +69,7 @@ export class TwitchBot {
       handleSubs(this.chatClient);
       handleResubs(this.chatClient);
       handleSubGifts(this.chatClient);
+      handleRaids(this.chatClient);
 
       TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
         try {
