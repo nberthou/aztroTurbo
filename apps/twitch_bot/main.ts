@@ -8,6 +8,7 @@ import { EventSubWsListener } from '@twurple/eventsub-ws';
 import { DiscordBot } from 'discord_bot';
 import { Bot } from '@twurple/easy-bot';
 import { handleRedemptions } from './handlers/redemption';
+import { handleCommunitySubs, handleResubs, handleSubGifts, handleSubs } from './handlers/subs';
 
 dotenv.config();
 
@@ -63,6 +64,10 @@ export class TwitchBot {
       await this.initializeClients();
       await handleMessages(this.chatClient);
       handleRedemptions(this.pubSubClient, this.chatClient, this.channelId, this.channelName);
+      handleCommunitySubs(this.chatClient);
+      handleSubs(this.chatClient);
+      handleResubs(this.chatClient);
+      handleSubGifts(this.chatClient);
 
       TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
         try {
