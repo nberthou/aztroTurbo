@@ -7,6 +7,7 @@ import { ApiClient } from '@twurple/api';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
 import { DiscordBot } from 'discord_bot';
 import { Bot } from '@twurple/easy-bot';
+import { handleRedemptions } from './handlers/redemption';
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ export class TwitchBot {
   constructor() {
     this.clientId = process.env.TWITCH_CLIENT_ID ?? '';
     this.clientSecret = process.env.TWITCH_CLIENT_SECRET ?? '';
-    this.channelId = process.env.TWITCH_BOT_ID ?? '';
+    this.channelId = process.env.TWITCH_CHANNEL_ID ?? '';
     this.channelName = process.env.TWITCH_CHANNEL_NAME ?? '';
   }
 
@@ -61,6 +62,7 @@ export class TwitchBot {
     try {
       await this.initializeClients();
       await handleMessages(this.chatClient);
+      handleRedemptions(this.pubSubClient, this.chatClient, this.channelId, this.channelName);
 
       TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
         try {
@@ -92,6 +94,9 @@ export class TwitchBot {
 
     this.chatClient.onAuthenticationSuccess(() => console.log('BOT_Aztro est connecté à Twitch !'));
     this.chatClient.onAuthenticationFailure((error) => console.error('Erreur de connexion : ', error));
+    this.pubSubClient.onListenError((event, error, test) => {
+      console.error('ERREUR PUBSUB', error);
+    });
   }
 }
 

@@ -105,7 +105,7 @@ async function handleGreeting(
   if (message.startsWith(PREFIX) || userName.toLowerCase() === BOT_NAME || chatMessage.isFirst) return;
 
   const timeSinceLastGreeting = Date.now() - currentUser.updatedAt.getTime();
-  if (timeSinceLastGreeting > GREETING_COOLDOWN) {
+  if (timeSinceLastGreeting > GREETING_COOLDOWN || currentUser.wallet.stars < 1) {
     await chatClient.say(channel, `Bonjour ${chatMessage.userInfo.displayName} ! azgoldHi`);
   }
 }

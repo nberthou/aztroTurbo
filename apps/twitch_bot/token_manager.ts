@@ -25,16 +25,21 @@ export class TokenManager {
   public async initialize(name: string) {
     const tokens = await getTokenByName(name);
     if (tokens) {
-      await this.authProvider.addUser(
-        process.env.TWITCH_CHANNEL_ID!,
-        {
-          accessToken: tokens.accessToken,
-          refreshToken: tokens.refreshToken,
-          expiresIn: 0,
-          obtainmentTimestamp: tokens.obtainmentTimestamp,
-        },
-        ['chat', 'channel:read:redemptions', 'moderator:manange:banned_user', 'moderator:read:followers']
-      );
+      await this.authProvider.addUser(process.env.TWITCH_CHANNEL_ID!, {
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+        expiresIn: 0,
+        obtainmentTimestamp: tokens.obtainmentTimestamp,
+        scope: [
+          'chat',
+          'chat:edit',
+          'chat:read',
+          'channel:manage:redemptions',
+          'channel:read:redemptions',
+          'moderator:manange:banned_user',
+          'moderator:read:followers',
+        ],
+      });
       await this.authProvider.addUser(
         process.env.TWITCH_BOT_ID!,
         {
@@ -42,8 +47,17 @@ export class TokenManager {
           refreshToken: tokens.refreshToken,
           expiresIn: 0,
           obtainmentTimestamp: tokens.obtainmentTimestamp,
+          scope: [
+            'chat',
+            'chat:edit',
+            'chat:read',
+            'channel:manage:redemptions',
+            'channel:read:redemptions',
+            'moderator:manange:banned_user',
+            'moderator:read:followers',
+          ],
         },
-        ['chat', 'channel:read:redemptions', 'moderator:manange:banned_user', 'moderator:read:followers']
+        ['chat']
       );
     }
   }
