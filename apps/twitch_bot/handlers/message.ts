@@ -9,6 +9,7 @@ import { handleFollowageCommand } from '../commands/followage';
 import { handleRouletteCommand } from '../commands/roulette';
 import { handleShifumiCommand } from '../commands/shifumi';
 import { handleAuCoinCommand } from '../commands/aucoin';
+import { TwitchBot } from '../main';
 
 export type CommandProps = {
   userId: string;
@@ -71,6 +72,13 @@ async function handleCommand(
 ): Promise<void> {
   if (!message.toLowerCase().startsWith(PREFIX)) return;
 
+  const urlPattern =
+    /(?:https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+  const urls = message.match(urlPattern);
+  if (urls && !urls.some((url) => url.includes('clips.twitch.tv')) && !isUserMod) {
+    await TwitchBot.bot.ban(channel, displayName.toLocaleLowerCase(), 'Les liens ne sont pas autorisés sur la chaîne.');
+    return;
+  }
   const [commandName, ...args] = message.slice(PREFIX.length).trim().toLowerCase().split(/\s+/);
 
   if (!commandName) {
