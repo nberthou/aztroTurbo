@@ -56,3 +56,4 @@ jobs:
           passphrase: ''
           script: |
             cd /root/aztroTurbo
+            yarn workspace @repo/db prisma generate
