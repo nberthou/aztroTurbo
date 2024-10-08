@@ -1,7 +1,7 @@
 {
   "name": "discord_bot",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "main.ts",
   "license": "MIT",
   "scripts": {
     "dev": "tsx --watch main.ts",

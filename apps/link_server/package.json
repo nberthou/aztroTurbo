@@ -1,0 +1,23 @@
+{
+  "name": "link_server",
+  "packageManager": "yarn@4.2.2",
+  "dependencies": {
+    "@repo/db": "*",
+    "@repo/types": "*",
+    "@repo/typescript-config": "*",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4",
+    "@types/node": "^20.12.12",
+    "esbuild": "^0.21.3",
+    "tsx": "^4.10.5",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "dev": "tsx --watch main.ts",
+    "build": "esbuild main.ts --bundle --platform=node --outfile=dist/main.js",
+    "start": "node dist/main.js",
+    "type-check": "tsc"
+  }
+}

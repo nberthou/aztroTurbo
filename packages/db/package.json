@@ -1,7 +1,7 @@
 {
   "name": "@repo/db",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "utils.ts",
   "license": "MIT",
   "devDependencies": {
     "prisma": "^5.14.0",

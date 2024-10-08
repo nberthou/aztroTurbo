@@ -28,25 +28,24 @@ module.exports = {
       const pluriel = starCount > 1 ? 's' : '';
       embed.setDescription(`${displayName}, tu as ${starCount} étoile${pluriel} ! ${starEmoji}`);
 
-      // if (!currentUser.twitchUsername) {
-      //   embed.addFields({
-      //     name: "Ton compte Twitch n'est pas lié !",
-      //     value: 'Tu peux cliquer sur le bouton ci-dessous pour lier ton compte Twitch et synchroniser tes étoiles.',
-      //   });
-      // }
+      if (!currentUser.twitchId) {
+        embed.addFields({
+          name: "Ton compte Twitch n'est pas lié !",
+          value: 'Tu peux cliquer sur le bouton ci-dessous pour lier ton compte Twitch et synchroniser tes étoiles.',
+        });
+      }
     }
 
     const linkButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setLabel('Lier mon compte Twitch (pas encore disponible)')
-      .setURL('https://twitch.tv/')
-      .setDisabled(true);
+      .setLabel('Lier mon compte Twitch')
+      .setURL('https://api.twitch.tv/kraken/oauth2/authorize?response_type=code&client_id=&redirect_uri=&scope=user_read');
 
     const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(linkButton);
 
     await interaction.reply({
       embeds: [embed],
-      // components: currentUser?.twitchUsername ? [] : [actionRow],
+      components: currentUser?.twitchId ? [] : [actionRow],
       ephemeral: true,
     });
   },
