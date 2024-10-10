@@ -45,6 +45,7 @@ jobs:
           script: |
             cd /root/aztroTurbo
             yarn build
+            cp -rf /root/aztroTurbo/apps/link-server /var/www/aztroTurbo/apps/link-server
 
       - name: Restarting app
         uses: appleboy/ssh-action@master
