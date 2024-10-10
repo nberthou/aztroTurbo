@@ -2681,6 +2681,7 @@ __metadata:
     "@repo/typescript-config": "npm:*"
     "@types/express": "npm:^4"
     "@types/node": "npm:^20.12.12"
+    dotenv: "npm:^16.4.5"
     esbuild: "npm:^0.21.3"
     express: "npm:^4.21.0"
     tsx: "npm:^4.10.5"

@@ -5,6 +5,7 @@
     "@repo/db": "*",
     "@repo/types": "*",
     "@repo/typescript-config": "*",
+    "dotenv": "^16.4.5",
     "express": "^4.21.0"
   },
   "devDependencies": {
