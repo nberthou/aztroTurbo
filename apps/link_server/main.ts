@@ -4,7 +4,7 @@ const app = express();
 const port = 7176;
 
 app.get('/aztro-link', (req, res) => {
-  console.log('params', req.params);
+  console.log('params ?', req.params['code'], req.params['scope']);
   res.send('Hello world !');
 });
 
