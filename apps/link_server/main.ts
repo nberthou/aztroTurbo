@@ -15,7 +15,7 @@ app.get('/aztro-link/token', (req, res) => {
   console.log('req.query', req.query);
 });
 
-app.post('/test', (req, res) => {
+app.post('/aztro-link/test', (req, res) => {
   const { code } = req.query;
   res.redirect(
     307,
