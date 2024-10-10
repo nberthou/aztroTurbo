@@ -39,7 +39,9 @@ module.exports = {
     const linkButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setLabel('Lier mon compte Twitch')
-      .setURL('https://api.twitch.tv/kraken/oauth2/authorize?response_type=code&client_id=&redirect_uri=&scope=user_read');
+      .setURL(
+        `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.TWITCH_CLIENT_ID ?? ''}&redirect_uri=https://api.azgold.fr/aztro-link&scope=user_read`
+      );
 
     const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(linkButton);
 
