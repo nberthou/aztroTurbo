@@ -8,7 +8,7 @@ const port = 7176;
 
 app.get('/aztro-link', (req, res) => {
   const { code } = req.query;
-  res.redirect(`/test?code=${code}`);
+  res.redirect(`/aztro-link/test?code=${code}`);
 });
 
 app.get('/aztro-link/token', (req, res) => {
