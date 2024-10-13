@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     form.append('client_secret', process.env.TWITCH_CLIENT_SECRET);
     form.append('code', code);
     form.append('grant_type', 'authorization_code');
-    form.append('redirect_uri', 'https://api.azgold.fr/aztro-link/token');
+    form.append('redirect_uri', 'https://api.azgold.fr/aztro-link');
 
     axios
       .post('https://id.twitch.tv/oauth2/token', form, {
