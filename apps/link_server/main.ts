@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import FormData from 'form-data';
+import { mergeDiscordAndTwitchUser } from '@repo/db/user/discord';
 
 dotenv.config();
 
@@ -37,9 +38,14 @@ app.get('/', (req, res) => {
                 'Client-Id': process.env.TWITCH_CLIENT_ID,
               },
             })
-            .then((response: any) => {
-              console.log('Utilisateur récupéré avec succès:', response.data);
-              res.status(200).json({ success: 'Utilisateur récupéré avec succès.' });
+            .then(async (response: any) => {
+              const {
+                data: { id: twitchId },
+              } = response;
+              if (twitchId) {
+                await mergeDiscordAndTwitchUser('', twitchId);
+              }
+              res.status(200).send('Vous pouvez fermer cette fenêtre désormais !');
             })
             .catch((error: any) => {
               console.error("Erreur lors de la récupération de l'utilisateur:", error);
