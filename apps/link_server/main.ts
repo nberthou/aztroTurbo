@@ -11,11 +11,11 @@ app.get('/', (req, res) => {
   res.redirect(`/aztro-link/test?code=${code}`);
 });
 
-app.get('/aztro-link/token', (req, res) => {
+app.get('/token', (req, res) => {
   console.log('req.query', req.query);
 });
 
-app.get('/aztro-link/test', (req, res) => {
+app.get('/test', (req, res) => {
   const { code } = req.query;
   res.redirect(
     307,
