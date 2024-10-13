@@ -10,7 +10,8 @@ const app = express();
 const port = 7176;
 
 app.get('/', (req, res) => {
-  const { code } = req.query;
+  const { code, state } = req.query;
+  console.log('state', state);
   if (code) {
     const form = new FormData();
     form.append('client_id', process.env.TWITCH_CLIENT_ID);
