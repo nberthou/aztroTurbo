@@ -25,7 +25,28 @@ app.get('/', (req, res) => {
         },
       })
       .then((response: any) => {
-        console.log('DATA IS : ', response.data);
+        const {
+          data: { access_token: token },
+        } = response;
+
+        if (token) {
+          const form = new FormData();
+          form.append('Authorization', `Bearer ${token}`);
+          form.append('Client-Id', process.env.TWITCH_CLIENT_ID);
+
+          axios
+            .get(`https://api.twitch.tv/helix/users`, {
+              data: form,
+            })
+            .then((response: any) => {
+              console.log('response.data', response.data);
+              res.status(200).json({ success: 'Vous pouvez désormais fermer cette fenêtre.' });
+            })
+            .catch((error: any) => {
+              console.error(error);
+              res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur." });
+            });
+        }
       })
       .catch((error: any) => {
         console.error('ERROR', error);
