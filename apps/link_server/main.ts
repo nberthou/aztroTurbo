@@ -30,20 +30,19 @@ app.get('/', (req, res) => {
         } = response;
 
         if (token) {
-          const form = new FormData();
-          form.append('Authorization', `Bearer ${token}`);
-          form.append('Client-Id', process.env.TWITCH_CLIENT_ID);
-
           axios
-            .get(`https://api.twitch.tv/helix/users`, {
-              data: form,
+            .get('https://api.twitch.tv/helix/users', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Client-Id': process.env.TWITCH_CLIENT_ID,
+              },
             })
             .then((response: any) => {
-              console.log('response.data', response.data);
-              res.status(200).json({ success: 'Vous pouvez désormais fermer cette fenêtre.' });
+              console.log('Utilisateur récupéré avec succès:', response.data);
+              res.status(200).json({ success: 'Utilisateur récupéré avec succès.' });
             })
             .catch((error: any) => {
-              console.error(error);
+              console.error("Erreur lors de la récupération de l'utilisateur:", error);
               res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur." });
             });
         }
