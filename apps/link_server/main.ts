@@ -8,7 +8,7 @@ const port = 7176;
 
 app.get('/', (req, res) => {
   const { code } = req.query;
-  res.redirect(`/test?code=${code}`);
+  res.redirect(`test?code=${code}`);
 });
 
 app.get('/token', (req, res) => {
