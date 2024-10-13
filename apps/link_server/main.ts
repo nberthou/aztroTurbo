@@ -6,7 +6,7 @@ dotenv.config();
 const app = express();
 const port = 7176;
 
-app.get('/aztro-link', (req, res) => {
+app.get('/', (req, res) => {
   const { code } = req.query;
   res.redirect(`/aztro-link/test?code=${code}`);
 });
@@ -15,7 +15,7 @@ app.get('/aztro-link/token', (req, res) => {
   console.log('req.query', req.query);
 });
 
-app.post('/aztro-link/test', (req, res) => {
+app.get('/aztro-link/test', (req, res) => {
   const { code } = req.query;
   res.redirect(
     307,
