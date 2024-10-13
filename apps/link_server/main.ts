@@ -11,7 +11,6 @@ const port = 7176;
 
 app.get('/', (req, res) => {
   const { code, state } = req.query;
-  console.log('state', state);
   if (code) {
     const form = new FormData();
     form.append('client_id', process.env.TWITCH_CLIENT_ID);
@@ -44,7 +43,7 @@ app.get('/', (req, res) => {
                 data: { id: twitchId },
               } = response;
               if (twitchId) {
-                await mergeDiscordAndTwitchUser('', twitchId);
+                await mergeDiscordAndTwitchUser(state as string, twitchId);
               }
               res.status(200).send('Vous pouvez fermer cette fenêtre désormais !');
             })
