@@ -44,8 +44,8 @@ app.get('/', (req, res) => {
               } = response;
               if (twitchId) {
                 await mergeDiscordAndTwitchUser(state as string, twitchId);
+                res.status(200).send('Vous pouvez fermer cette fenêtre désormais !');
               }
-              res.status(200).send('Vous pouvez fermer cette fenêtre désormais !');
             })
             .catch((error: any) => {
               console.error("Erreur lors de la récupération de l'utilisateur:", error);
