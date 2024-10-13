@@ -86,7 +86,7 @@ async function handleCommand(
     return;
   }
 
-  const dbCommand = dbCommands.find((cmd) => cmd.name.toLowerCase() === commandName);
+  const dbCommand = dbCommands.find((cmd) => cmd.name.toLowerCase() === commandName.toLowerCase());
 
   if (dbCommand) {
     await chatClient.say(channel, dbCommand.content);

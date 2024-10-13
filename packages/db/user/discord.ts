@@ -23,10 +23,11 @@ export function createDiscordUser(discordId: string) {
 
 export async function mergeDiscordAndTwitchUser(discordId: string, twitchId: string) {
   const twitchUser = await getUserByTwitchId(twitchId);
+  let newUser;
 
   if (twitchUser) {
     const discordUser = await getUserByDiscordId(discordId);
-    await prismaClient.user.updateMany({
+    newUser = await prismaClient.user.updateMany({
       where: {
         discordId: discordId,
       },
@@ -41,11 +42,12 @@ export async function mergeDiscordAndTwitchUser(discordId: string, twitchId: str
       },
     });
   } else {
-    await prismaClient.user.updateMany({
+    newUser = await prismaClient.user.updateMany({
       where: { discordId },
       data: {
         twitchId,
       },
     });
   }
+  return newUser;
 }

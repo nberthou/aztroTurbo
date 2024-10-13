@@ -36,11 +36,13 @@ module.exports = {
       }
     }
 
+    const redirectUrl = `https://api.azgold.fr/aztro-link?discord_id=${userId}`;
+
     const linkButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setLabel('Lier mon compte Twitch')
       .setURL(
-        `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.TWITCH_CLIENT_ID ?? ''}&scope=user_read&redirect_uri=https://api.azgold.fr/aztro-link?discord_id=${userId}`
+        `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${process.env.TWITCH_CLIENT_ID ?? ''}&scope=user_read&redirect_uri=${redirectUrl}`
       );
 
     const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(linkButton);
