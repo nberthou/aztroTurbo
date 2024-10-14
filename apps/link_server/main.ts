@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
               },
             })
             .then(async (response: any) => {
-              const twitchId = response.data.data[0].twitchId;
+              const twitchId = response.data.data[0].id;
               if (twitchId) {
                 await mergeDiscordAndTwitchUser(state as string, twitchId);
                 res.status(200).send('Vous pouvez fermer cette fenêtre désormais !');
