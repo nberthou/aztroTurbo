@@ -8,7 +8,7 @@ import {
   SlashCommandBuilder,
 } from 'discord.js';
 import { getUserByDiscordId } from '@repo/db/user/discord';
-import { getEmoji } from '../../utils';
+import { DiscordBot } from '../../main';
 
 module.exports = {
   data: new SlashCommandBuilder().setName('stars').setDescription('Commande wallet stars'),
@@ -23,7 +23,7 @@ module.exports = {
       embed.setDescription(`${displayName}, tu n'es pas enregistré sur le bot !`);
     } else {
       const starCount = currentUser.stars;
-      const starEmoji = getEmoji('azgoldStar') || getEmoji('smiley');
+      const starEmoji = DiscordBot.getEmoji('azgoldStar');
 
       const pluriel = starCount > 1 ? 's' : '';
       embed.setDescription(`${displayName}, tu as ${starCount} étoile${pluriel} ! ${starEmoji}`);
