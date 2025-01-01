@@ -105,6 +105,13 @@ export class TwitchBot {
       console.error('ERREUR PUBSUB', error);
     });
   }
+
+  static async getLatestFollower(): Promise<string | undefined> {
+    const channel = await TwitchBot.apiClient.users.getUserById(process.env.TWITCH_CHANNEL_ID!);
+    const followers = (await channel?.getChannelFollowers())!.data.map((d) => d.userDisplayName);
+
+    return followers[0];
+  }
 }
 
 (async () => {

@@ -30,15 +30,7 @@ export class TokenManager {
         refreshToken: tokens.refreshToken,
         expiresIn: 0,
         obtainmentTimestamp: tokens.obtainmentTimestamp,
-        scope: [
-          'chat',
-          'chat:edit',
-          'chat:read',
-          'channel:manage:redemptions',
-          'channel:read:redemptions',
-          'moderator:manange:banned_user',
-          'moderator:read:followers',
-        ],
+        scope: tokens.scope as string[],
       });
       await this.authProvider.addUser(
         process.env.TWITCH_BOT_ID!,
@@ -47,15 +39,7 @@ export class TokenManager {
           refreshToken: tokens.refreshToken,
           expiresIn: 0,
           obtainmentTimestamp: tokens.obtainmentTimestamp,
-          scope: [
-            'chat',
-            'chat:edit',
-            'chat:read',
-            'channel:manage:redemptions',
-            'channel:read:redemptions',
-            'moderator:manange:banned_user',
-            'moderator:read:followers',
-          ],
+          scope: tokens.scope as string[],
         },
         ['chat']
       );
