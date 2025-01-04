@@ -74,8 +74,27 @@ export class TwitchBot {
       TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
         try {
           const stream = await handler.getStream();
-          const currentGame = stream?.gameName || 'un jeu inconnu';
-          const message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
+          const currentGame = stream?.title.includes('[JUST CHILLING]') ? 'Just Chilling' : stream?.gameName || 'un jeu inconnu';
+          const justChillingGuest =
+            currentGame === 'Just Chilling' ? stream?.title.split(' ').find((word) => word.startsWith('@')) : null;
+
+          let message: string;
+
+          switch (currentGame) {
+            case 'Just Chilling':
+              message = `@everyone OMG c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! Viens sur le chat pour regarder leur discussion sur ${stream?.gameName} chez https://twitch.tv/${handler.broadcasterName} et https://twitch.tv/${justChillingGuest?.slice(1)} ! `;
+            case 'Fall Guys':
+              message = `@everyone, il est l'heure de faire des top 1 ! Rejoins ${handler.broadcasterDisplayName} et ses copains sur Fall Guys ici : https://twitch.tv/${handler.broadcasterName}`;
+              break;
+            case 'Stardew Valley':
+              message = `@everyone, il est temps de retrouver ${handler.broadcasterDisplayName} à la ferme ! Rejoins-le sur Stardew Valley ici : https://twitch.tv/${handler.broadcasterName}`;
+              break;
+            case 'Animal Crossing':
+              message = `@everyone, c'est le moment de retrouver ${handler.broadcasterDisplayName} sur son île ! C'est l'heure d'Animal Crossing, juste ici : https://twitch.tv/${handler.broadcasterName}`;
+
+            default:
+              message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
+          }
 
           await DiscordBot.sendMessageToAnnouncementsChannel(process.env.DISCORD_ANNOUNCEMENT_CHANNEL_ID!, message);
           await this.chatClient.say(
