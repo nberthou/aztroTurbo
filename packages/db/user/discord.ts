@@ -1,5 +1,6 @@
 import { prismaClient } from '../utils';
 import { getUserByTwitchId } from './twitch';
+import { User } from '@prisma/client';
 
 export function getUserByDiscordId(discordId?: string) {
   if (!discordId) {
@@ -48,4 +49,13 @@ export async function mergeDiscordAndTwitchUser(discordId: string, twitchId: str
       },
     });
   }
+}
+
+export async function getUsersRank(page: number): Promise<User[]> {
+  const numberOfUsersToShow = 10;
+  return await prismaClient.user.findMany({
+    orderBy: { stars: 'desc' },
+    take: numberOfUsersToShow,
+    skip: page * numberOfUsersToShow,
+  });
 }
