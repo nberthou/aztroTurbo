@@ -12,6 +12,7 @@
   "dependencies": {
     "@repo/db": "*",
     "@repo/death-counter": "*",
+    "@repo/redis": "*",
     "@repo/typescript-config": "*",
     "@repo/user-service": "*",
     "@twurple/api": "^7.1.0",
@@ -21,7 +22,6 @@
     "@twurple/eventsub": "^5.3.4",
     "@twurple/eventsub-ws": "^7.1.0",
     "@twurple/pubsub": "^7.1.0",
-    "discord_bot": "*",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
@@ -29,5 +29,8 @@
     "esbuild": "^0.21.3",
     "tsx": "^4.10.5",
     "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "discord_bot": "*"
   }
 }

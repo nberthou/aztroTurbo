@@ -10,6 +10,7 @@ import { Bot } from '@twurple/easy-bot';
 import { handleRedemptions } from './handlers/redemption';
 import { handleCommunitySubs, handleResubs, handleSubGifts, handleSubs } from './handlers/subs';
 import { handleRaids } from './handlers/raid';
+import { redisSubscriber, redisPublisher, connectRedis } from '@repo/redis';
 
 dotenv.config();
 
@@ -49,7 +50,7 @@ export class TwitchBot {
     TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
     try {
-      await TwitchBot.listener.start();
+      TwitchBot.listener.start();
       TwitchBot.bot = new Bot({
         channels: [this.channelName],
         authProvider: chatAuthProvider.getAuthProvider(),
@@ -95,8 +96,7 @@ export class TwitchBot {
             default:
               message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
           }
-
-          await DiscordBot.sendMessageToAnnouncementsChannel(process.env.DISCORD_ANNOUNCEMENT_CHANNEL_ID!, message);
+          redisPublisher.publish('discord-announcement', message);
           await this.chatClient.say(
             this.channelName,
             `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez ${handler.broadcasterDisplayName} ! azgoldDance`
@@ -118,7 +118,15 @@ export class TwitchBot {
       console.error('Erreur de connexion:', error);
     }
 
-    this.chatClient.onAuthenticationSuccess(() => console.log('BOT_Aztro est connecté à Twitch !'));
+    this.chatClient.onAuthenticationSuccess(async () => {
+      await connectRedis();
+      console.log('BOT_Aztro est connecté à Twitch !');
+
+      redisSubscriber.subscribe('twitch-id', async (twitchId) => {
+        const user = await TwitchBot.apiClient.users.getUserById(twitchId);
+        redisPublisher.publish(`twitch-username-${twitchId}`, user?.displayName!);
+      });
+    });
     this.chatClient.onAuthenticationFailure((error) => console.error('Erreur de connexion : ', error));
     this.pubSubClient.onListenError((event, error, test) => {
       console.error('ERREUR PUBSUB', error);

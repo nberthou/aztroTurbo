@@ -4,6 +4,7 @@ import {
   CommandInteraction,
   Events,
   GatewayIntentBits,
+  Guild,
   GuildEmoji,
   REST,
   Routes,
@@ -51,6 +52,10 @@ export class DiscordBot {
 
   static getEmoji(emojiName: string): GuildEmoji | null {
     return this.client.emojis.cache.find((emoji) => emoji.name === emojiName) || null;
+  }
+
+  static getGuild(): Guild {
+    return this.client.guilds.cache.get(process.env.DISCORD_GUILD_ID!)!;
   }
 
   public async start(): Promise<void> {
@@ -133,13 +138,6 @@ export class DiscordBot {
     for (const file of eventFiles) {
       const event = require(path.join(eventsPath, file));
       DiscordBot.client.on(event.name, event.execute);
-    }
-  }
-
-  static async sendMessageToAnnouncementsChannel(channelId: string, message: string) {
-    const channel = this.client.channels.cache.get(channelId);
-    if (channel?.isTextBased()) {
-      await (channel as TextChannel).send(message);
     }
   }
 }
