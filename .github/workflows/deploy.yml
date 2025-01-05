@@ -31,7 +31,7 @@ jobs:
           script: |
             cd /root/aztroTurbo
             git pull https://${{secrets.PAT}}@github.com/nberthou/aztroTurbo.git main
-            yarn
+            yarn install --frozen-lockfile
             yarn workspaces foreach -A install
 
       - name: Building project
