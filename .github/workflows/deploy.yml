@@ -57,3 +57,4 @@ jobs:
           script: |
             cd /root/aztroTurbo
             yarn workspace @repo/db prisma generate
+            pm2 restart aztroTurbo  --cron "0 */3 * * *"
