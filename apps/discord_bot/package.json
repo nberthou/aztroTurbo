@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@repo/db": "*",
-    "@repo/redis": "*",
+    "@repo/redis": "workspace:*",
     "@repo/types": "*",
     "@repo/typescript-config": "*",
     "@repo/user-service": "*",
