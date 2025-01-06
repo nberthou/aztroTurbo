@@ -12,7 +12,7 @@
   "dependencies": {
     "@repo/db": "*",
     "@repo/death-counter": "*",
-    "@repo/redis": "workspace:*",
+    "@repo/redis": "*",
     "@repo/typescript-config": "*",
     "@repo/user-service": "*",
     "@twurple/api": "^7.1.0",
