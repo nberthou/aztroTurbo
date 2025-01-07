@@ -37,7 +37,7 @@ export const handleResubs = (chatClient: ChatClient) => {
     await wallet.addStars(100 * months);
     await chatClient.say(
       channel,
-      `Merci ${displayName} pour  le ${months}ème mois de sub ! Prends ces ${100 * months} en remerciements ! azgoldLove`
+      `Merci ${displayName} pour  le ${months}ème mois de sub ! Prends ces ${100 * months} étoiles en remerciements ! azgoldLove`
     );
   });
 };
