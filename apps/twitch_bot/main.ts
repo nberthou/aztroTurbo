@@ -79,28 +79,30 @@ export class TwitchBot {
           const justChillingGuest =
             currentGame === 'Just Chilling' ? stream?.title.split(' ').find((word) => word.startsWith('@')) : null;
 
-          let message: string;
+          let discordMessage: string, twitchMessage: string;
 
           switch (currentGame) {
             case 'Just Chilling':
-              message = `@everyone OMG c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! Viens sur le chat pour regarder leur discussion sur ${stream?.gameName} chez https://twitch.tv/${handler.broadcasterName} et https://twitch.tv/${justChillingGuest?.slice(1)} ! `;
+              discordMessage = `@everyone OMG c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! Viens sur le chat pour regarder leur discussion sur ${stream?.gameName} chez https://twitch.tv/${handler.broadcasterName} et https://twitch.tv/${justChillingGuest?.slice(1)} ! `;
+              twitchMessage = `OMG, c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! azgoldDance `;
             case 'Fall Guys':
-              message = `@everyone, il est l'heure de faire des top 1 ! Rejoins ${handler.broadcasterDisplayName} et ses copains sur Fall Guys ici : https://twitch.tv/${handler.broadcasterName}`;
+              discordMessage = `@everyone, il est l'heure de faire des top 1 ! Rejoins ${handler.broadcasterDisplayName} et ses copains sur Fall Guys ici : https://twitch.tv/${handler.broadcasterName}`;
+              twitchMessage = "C'est l'heure de faire des top 1 ! Azgold arrive tout de suite sur Fall Guys ! azgoldHype";
               break;
             case 'Stardew Valley':
-              message = `@everyone, il est temps de retrouver ${handler.broadcasterDisplayName} à la ferme ! Rejoins-le sur Stardew Valley ici : https://twitch.tv/${handler.broadcasterName}`;
+              discordMessage = `@everyone, il est temps de retrouver ${handler.broadcasterDisplayName} à la ferme ! Rejoins-le sur Stardew Valley ici : https://twitch.tv/${handler.broadcasterName}`;
+              twitchMessage = `C'est le moment de retrouver ${handler.broadcasterDisplayName} à la ferme sur Stardew Valley ! azgoldPanais`;
               break;
             case 'Animal Crossing':
-              message = `@everyone, c'est le moment de retrouver ${handler.broadcasterDisplayName} sur son île ! C'est l'heure d'Animal Crossing, juste ici : https://twitch.tv/${handler.broadcasterName}`;
+              discordMessage = `@everyone, c'est le moment de retrouver ${handler.broadcasterDisplayName} sur son île ! C'est l'heure d'Animal Crossing, juste ici : https://twitch.tv/${handler.broadcasterName}`;
+              twitchMessage = `L'avion en direction l'île d'${handler.broadcasterDisplayName} est prêt à décoller, c'est l'heure d'Animal Crossing ! azgoldFusee`;
 
             default:
-              message = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
+              discordMessage = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
+              twitchMessage = `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez ${handler.broadcasterDisplayName} ! azgoldDance`;
           }
-          redisPublisher.publish('discord-announcement', message);
-          await this.chatClient.say(
-            this.channelName,
-            `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez ${handler.broadcasterDisplayName} ! azgoldDance`
-          );
+          redisPublisher.publish('discord-announcement', discordMessage);
+          await this.chatClient.say(this.channelName, twitchMessage);
         } catch (error) {
           console.error("Erreur lors de la gestion de l'événement onStreamOnline:", error);
         }
@@ -143,5 +145,7 @@ export class TwitchBot {
 
 (async () => {
   const bot = new TwitchBot();
-  await bot.start();
+  await bot.start().then(async () => {
+    console.log('Dernier follower :', await TwitchBot.getLatestFollower());
+  });
 })();
