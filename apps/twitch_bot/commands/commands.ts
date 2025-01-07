@@ -60,8 +60,9 @@ async function handleAddCommand(
   commandContent?: string
 ): Promise<void> {
   if (commandName && commandContent) {
-    const newCommand = await createCommand(commandName.toLocaleLowerCase(), commandContent);
-    await chatClient.say(channel, `La commande ${prefix}${newCommand.name} a été ajoutée ! azgoldHF`);
+    await createCommand(commandName.toLocaleLowerCase(), commandContent).then(async (data) => {
+      await chatClient.say(channel, `La commande ${prefix}${data.name} a été ajoutée ! azgoldHF`);
+    });
   } else {
     await chatClient.say(channel, `Usage: ${prefix}commands add <nom_commande> <contenu>`);
   }

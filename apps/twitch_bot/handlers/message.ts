@@ -38,9 +38,8 @@ const customCommands: Record<string, Function> = {
 };
 
 export async function handleMessages(chatClient: ChatClient): Promise<void> {
-  const dbCommands = await getAllCommands();
-
   chatClient.onMessage(async (channel, userName, message, chatMessage) => {
+    const dbCommands = await getAllCommands();
     const currentUser = await UserService.create(chatMessage.userInfo.userId, 'TWITCH');
     const { userInfo } = chatMessage;
 
