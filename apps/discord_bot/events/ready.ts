@@ -157,7 +157,7 @@ module.exports = {
   async execute(client: DiscordClient) {
     await connectRedis();
     redisSubscriber.subscribe('discord-announcement', async (message) => {
-      const channel = this.client.channels.cache.get(process.env.DISCORD_ANNOUNCEMENT_CHANNEL_ID!);
+      const channel = client.channels.cache.get(process.env.DISCORD_ANNOUNCEMENT_CHANNEL_ID!);
       if (channel?.isTextBased()) {
         await (channel as TextChannel).send(message);
       }
