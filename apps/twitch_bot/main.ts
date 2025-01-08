@@ -119,10 +119,6 @@ export class TwitchBot {
       console.error('Erreur de connexion:', error);
     }
 
-    TwitchBot.listener.onChannelFollow(this.channelId, process.env.TWITCH_BOT_ID!, async (handler) => {
-      console.log('Nouveau follower :', handler.userDisplayName);
-    });
-
     this.chatClient.onAuthenticationSuccess(async () => {
       await connectRedis();
       console.log('BOT_Aztro est connecté à Twitch !');
