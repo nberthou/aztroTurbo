@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import { handleMessages } from './handlers/message';
 import { ApiClient } from '@twurple/api';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
-import { DiscordBot } from 'discord_bot';
 import { Bot } from '@twurple/easy-bot';
 import { handleRedemptions } from './handlers/redemption';
 import { handleCommunitySubs, handleResubs, handleSubGifts, handleSubs } from './handlers/subs';
@@ -119,6 +118,10 @@ export class TwitchBot {
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }
+
+    TwitchBot.listener.onChannelFollow(this.channelId, process.env.TWITCH_BOT_ID!, async (handler) => {
+      console.log('Nouveau follower :', handler.userDisplayName);
+    });
 
     this.chatClient.onAuthenticationSuccess(async () => {
       await connectRedis();
