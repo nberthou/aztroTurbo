@@ -84,6 +84,7 @@ export class TwitchBot {
             case 'Just Chilling':
               discordMessage = `@everyone OMG c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! Viens sur le chat pour regarder leur discussion sur ${stream?.gameName} chez https://twitch.tv/${handler.broadcasterName} et https://twitch.tv/${justChillingGuest?.slice(1)} ! `;
               twitchMessage = `OMG, c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! azgoldDance `;
+              break;
             case 'Fall Guys':
               discordMessage = `@everyone, il est l'heure de faire des top 1 ! Rejoins ${handler.broadcasterDisplayName} et ses copains sur Fall Guys ici : https://twitch.tv/${handler.broadcasterName}`;
               twitchMessage = "C'est l'heure de faire des top 1 ! Azgold arrive tout de suite sur Fall Guys ! azgoldHype";
