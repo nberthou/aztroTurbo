@@ -83,7 +83,7 @@ export class TwitchBot {
           switch (currentGame) {
             case 'Mario Kart 8 Deluxe':
               discordMessage = `@everyone C'est l'heure de lancer vos meilleures carapaces bleues avec ${handler.broadcasterDisplayName} sur Mario Kart, et c'est ici : https://twitch.tv/${handler.broadcasterName} !`;
-              twitchMessage = "C'est l'heure de Mario Kart ! Ça va faire ses meilleurs drifts ! azgoldDance`;
+              twitchMessage = "C'est l'heure de Mario Kart ! Ça va faire ses meilleurs drifts ! azgoldDance";
               break;
             case 'Just Chilling':
               discordMessage = `@everyone OMG c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! Viens sur le chat pour regarder leur discussion sur ${stream?.gameName} chez https://twitch.tv/${handler.broadcasterName} et https://twitch.tv/${justChillingGuest?.slice(1)} ! `;
