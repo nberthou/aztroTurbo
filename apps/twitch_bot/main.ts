@@ -81,6 +81,10 @@ export class TwitchBot {
           let discordMessage: string, twitchMessage: string;
 
           switch (currentGame) {
+            case 'Mario Kart 8 Deluxe':
+              discordMessage = `@everyone C'est l'heure de lancer vos meilleures carapaces bleues avec ${handler.broadcasterDisplayName} sur Mario Kart, et c'est ici : https://twitch.tv/${handler.broadcasterName} !`;
+              twitchMessage = "C'est l'heure de Mario Kart ! Ça va faire ses meilleurs drifts ! azgoldDance`;
+              break;
             case 'Just Chilling':
               discordMessage = `@everyone OMG c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! Viens sur le chat pour regarder leur discussion sur ${stream?.gameName} chez https://twitch.tv/${handler.broadcasterName} et https://twitch.tv/${justChillingGuest?.slice(1)} ! `;
               twitchMessage = `OMG, c'est l'heure du Just Chilling avec ${justChillingGuest?.slice(1)} ! azgoldDance `;
@@ -96,7 +100,7 @@ export class TwitchBot {
             case 'Animal Crossing':
               discordMessage = `@everyone, c'est le moment de retrouver ${handler.broadcasterDisplayName} sur son île ! C'est l'heure d'Animal Crossing, juste ici : https://twitch.tv/${handler.broadcasterName}`;
               twitchMessage = `L'avion en direction l'île d'${handler.broadcasterDisplayName} est prêt à décoller, c'est l'heure d'Animal Crossing ! azgoldFusee`;
-
+              break;
             default:
               discordMessage = `@everyone, le stream d'${handler.broadcasterDisplayName} sur ${currentGame} va bientôt commencer ! Venez nous rejoindre sur https://twitch.tv/${handler.broadcasterName} !`;
               twitchMessage = `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez ${handler.broadcasterDisplayName} ! azgoldDance`;
