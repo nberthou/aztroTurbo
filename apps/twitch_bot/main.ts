@@ -52,7 +52,7 @@ export class TwitchBot {
       TwitchBot.listener.start();
       TwitchBot.bot = new Bot({
         channels: [this.channelName],
-        authProvider: chatAuthProvider.getAuthProvider(),
+        authProvider: pubSubAuthProvider.getAuthProvider(),
       });
       console.log('EventSubWsListener démarré avec succès');
     } catch (error) {
