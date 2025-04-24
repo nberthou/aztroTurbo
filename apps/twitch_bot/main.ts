@@ -43,7 +43,7 @@ export class TwitchBot {
     });
 
     this.pubSubClient = new PubSubClient({
-      authProvider: pubSubAuthProvider.getAuthProvider(),
+      authProvider: chatAuthProvider.getAuthProvider(),
     });
 
     TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
