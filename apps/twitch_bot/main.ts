@@ -64,7 +64,7 @@ export class TwitchBot {
     try {
       await this.initializeClients();
       await handleMessages(this.chatClient);
-      handleRedemptions(this.pubSubClient, this.chatClient, this.channelId, this.channelName);
+      handleRedemptions(TwitchBot.listener, this.chatClient, this.channelId, this.channelName);
       handleCommunitySubs(this.chatClient);
       handleSubs(this.chatClient);
       handleResubs(this.chatClient);
