@@ -62,9 +62,10 @@ export class TwitchBot {
 
   public async start(): Promise<void> {
     try {
+      
       await this.initializeClients();
       await handleMessages(this.chatClient);
-      handleRedemptions(TwitchBot.listener, this.chatClient, this.channelId, this.channelName);
+      // handleRedemptions(TwitchBot.listener, this.chatClient, this.channelId, this.channelName);
       handleCommunitySubs(this.chatClient);
       handleSubs(this.chatClient);
       handleResubs(this.chatClient);
@@ -130,7 +131,9 @@ export class TwitchBot {
 
       redisSubscriber.subscribe('twitch-id', async (twitchId) => {
         const user = await TwitchBot.apiClient.users.getUserById(twitchId);
-        redisPublisher.publish(`twitch-username-${twitchId}`, user?.displayName!);
+        if (user?.name || user?.displayName) {
+          redisPublisher.publish(`twitch-username-${twitchId}`, user?.displayName!);
+        }
       });
     });
     this.chatClient.onAuthenticationFailure((error) => console.error('Erreur de connexion : ', error));

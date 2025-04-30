@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { RefreshingAuthProvider } from '@twurple/auth';
 import { ApiClient } from '@twurple/api';
 import { getTokenByName, upsertTokens } from '@repo/db/token';
+import { TwitchBot } from './main';
 
 const prisma = new PrismaClient();
 
@@ -25,14 +26,14 @@ export class TokenManager {
   public async initialize(name: string) {
     const tokens = await getTokenByName(name);
     if (tokens) {
-      await this.authProvider.addUser(process.env.TWITCH_CHANNEL_ID!, {
+      this.authProvider.addUser(process.env.TWITCH_CHANNEL_ID!, {
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
         expiresIn: 0,
         obtainmentTimestamp: tokens.obtainmentTimestamp,
         scope: tokens.scope as string[],
       });
-      await this.authProvider.addUser(
+      this.authProvider.addUser(
         process.env.TWITCH_BOT_ID!,
         {
           accessToken: tokens.accessToken,
