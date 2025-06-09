@@ -82,7 +82,7 @@ export class TwitchBot {
           let discordMessage: string, twitchMessage: string;
 
           switch (currentGame) {
-            case 'Mario Kart 8 Deluxe':
+            case 'Mario Kart World':
               discordMessage = `@everyone C'est l'heure de lancer vos meilleures carapaces bleues avec ${handler.broadcasterDisplayName} sur Mario Kart, et c'est ici : https://twitch.tv/${handler.broadcasterName} !`;
               twitchMessage = "C'est l'heure de Mario Kart ! Ça va faire ses meilleurs drifts ! azgoldDance";
               break;
