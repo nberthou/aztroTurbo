@@ -1,5 +1,4 @@
-import { Events, Message, MessageInteraction } from 'discord.js';
-import { Wallet } from '@repo/wallet';
+import { Events, Message } from 'discord.js';
 import { UserService } from '@repo/user-service';
 
 module.exports = {

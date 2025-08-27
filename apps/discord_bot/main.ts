@@ -38,6 +38,7 @@ export class DiscordBot {
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildVoiceStates,
       ],
     });
     DiscordBot.client.commands = new Collection();
@@ -134,6 +135,8 @@ export class DiscordBot {
   private async loadEvents(): Promise<void> {
     const eventsPath = path.join(__dirname, 'events');
     const eventFiles = fs.readdirSync(eventsPath).filter((file) => file.endsWith('.ts'));
+
+    console.log({eventFiles})
 
     for (const file of eventFiles) {
       const event = require(path.join(eventsPath, file));
