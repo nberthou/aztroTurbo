@@ -136,8 +136,6 @@ export class DiscordBot {
     const eventsPath = path.join(__dirname, 'events');
     const eventFiles = fs.readdirSync(eventsPath).filter((file) => file.endsWith('.ts'));
 
-    console.log({eventFiles})
-
     for (const file of eventFiles) {
       const event = require(path.join(eventsPath, file));
       DiscordBot.client.on(event.name, event.execute);
