@@ -133,14 +133,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@d-fischer/rate-limiter@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "@d-fischer/rate-limiter@npm:1.0.1"
+"@d-fischer/rate-limiter@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@d-fischer/rate-limiter@npm:1.1.0"
   dependencies:
     "@d-fischer/logger": "npm:^4.2.3"
     "@d-fischer/shared-utils": "npm:^3.6.3"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/19126c65b3a62e825f3dfbbf8376bd7e5374ce2a49c17251d5aca001d998e414ae49dcb6028dfb61a19af375a381c443ba8b96c72f09bab55a21c0fd888b2f41
+  checksum: 10c0/71816e6aea70d3b07ee52175a2a991d8fa0d1ad75047ad041e9c4a8be4bd52a37b276be1a3403ce92964099e17f9a1f13e761c3663001e350af7e37ec90cabd2
   languageName: node
   linkType: hard
 
@@ -843,16 +843,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/api-call@npm:7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/api-call@npm:7.1.0"
+"@twurple/api-call@npm:7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/api-call@npm:7.4.0"
   dependencies:
     "@d-fischer/cross-fetch": "npm:^5.0.1"
     "@d-fischer/qs": "npm:^7.0.2"
     "@d-fischer/shared-utils": "npm:^3.6.1"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/common": "npm:7.4.0"
     tslib: "npm:^2.0.3"
-  checksum: 10c0/2ebb07b9ea152be0789ca89ca1dc09ac4c349382afb7d780a769f216b5c06e759e7601b2deb12e1c777e2a738c86924cd64e62e27bb7452fc5fd00d5cdd9b56d
+  checksum: 10c0/227fdf38d86a8bb7464cd7217c2a86470fc50736a32867a820613b469a6d52007c8217be67057b00cd4bbd0aeb22841244d38cb7b2717e095df7a16babe17e54
   languageName: node
   linkType: hard
 
@@ -874,24 +874,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/api@npm:7.1.0, @twurple/api@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/api@npm:7.1.0"
+"@twurple/api@npm:7.4.0, @twurple/api@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/api@npm:7.4.0"
   dependencies:
     "@d-fischer/cache-decorators": "npm:^4.0.0"
     "@d-fischer/cross-fetch": "npm:^5.0.1"
     "@d-fischer/detect-node": "npm:^3.0.1"
     "@d-fischer/logger": "npm:^4.2.1"
-    "@d-fischer/rate-limiter": "npm:^1.0.0"
+    "@d-fischer/rate-limiter": "npm:^1.1.0"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.1"
-    "@twurple/api-call": "npm:7.1.0"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/api-call": "npm:7.4.0"
+    "@twurple/common": "npm:7.4.0"
     retry: "npm:^0.13.1"
     tslib: "npm:^2.0.3"
   peerDependencies:
-    "@twurple/auth": 7.1.0
-  checksum: 10c0/14ed412fb2255ca9a84468c56f309d0bb2a1cfaf91d128cf0faa4c4655eac3fe5b776410ad184c6a8b63ba598236c01e290dee67844f59783d97bea3432c8f6e
+    "@twurple/auth": 7.4.0
+  checksum: 10c0/4043779bba729364e6d0191900f51e94d5df08dbe4da1109a190009b7b5cb6691fbd976d138bff2483c2e2dd576821fc92c4a8c8c5a67cb217a5933b0e082939
   languageName: node
   linkType: hard
 
@@ -908,36 +908,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/auth@npm:7.1.0, @twurple/auth@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/auth@npm:7.1.0"
+"@twurple/auth@npm:7.4.0, @twurple/auth@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/auth@npm:7.4.0"
   dependencies:
     "@d-fischer/logger": "npm:^4.2.1"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.1"
-    "@twurple/api-call": "npm:7.1.0"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/api-call": "npm:7.4.0"
+    "@twurple/common": "npm:7.4.0"
     tslib: "npm:^2.0.3"
-  checksum: 10c0/22ac25c38174de7a847a47db346d0b82885aefdfca58ddec0b591c24bf8c315f931e04534df71b838503fec3fa573ae7937cbc9d8ddffb68de1de8545f32c453
+  checksum: 10c0/64c2c7351fea1a35e84e73eabaa8df6940289666d1eddf43eecaff56f8c6c43b5f6837d2a3beeaa0e07eae86fdb57dd228686fa9f352ad80f314b848d5a4e252
   languageName: node
   linkType: hard
 
-"@twurple/chat@npm:7.1.0, @twurple/chat@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/chat@npm:7.1.0"
+"@twurple/chat@npm:7.4.0, @twurple/chat@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/chat@npm:7.4.0"
   dependencies:
     "@d-fischer/cache-decorators": "npm:^4.0.0"
     "@d-fischer/deprecate": "npm:^2.0.2"
     "@d-fischer/logger": "npm:^4.2.1"
-    "@d-fischer/rate-limiter": "npm:^1.0.0"
+    "@d-fischer/rate-limiter": "npm:^1.1.0"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.0"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/common": "npm:7.4.0"
     ircv3: "npm:^0.33.0"
     tslib: "npm:^2.0.3"
   peerDependencies:
-    "@twurple/auth": 7.1.0
-  checksum: 10c0/66f9f9f7ab7f3fae46351f37afa339a86d4abe2cfa2491172dff8cad371c457d18db7f31b9fbef3ebcf661392a7bc6932fe9322071e4f0f0926109ff963766d7
+    "@twurple/auth": 7.4.0
+  checksum: 10c0/ce00d9f924fb4237a47a1a8e7dfe92fa183dbd7725d701d2f7124ce9f564d2d98decbdb9fe8d92f975a77679933fa5f1e3324ecb1cda43eff29d34f3c3a965b6
   languageName: node
   linkType: hard
 
@@ -952,30 +952,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/common@npm:7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/common@npm:7.1.0"
+"@twurple/common@npm:7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/common@npm:7.4.0"
   dependencies:
     "@d-fischer/shared-utils": "npm:^3.6.1"
     klona: "npm:^2.0.4"
     tslib: "npm:^2.0.3"
-  checksum: 10c0/127bcaba255450bfe9e51ac949681adf27865a26b4bb7d23188292c9f4d8c0b3e30529e41caa4d77156888eae28bbeccf7a63f9e1c0eb2e632dc401f3dbc5298
+  checksum: 10c0/d08e9edea76acb21fc4ddee1b0874034ec120bb76b804e9cd64bbaaf571b0bbe5c855f6944021e9df83d6a7c4f4420d6908c11264224fb132cc4753de076983e
   languageName: node
   linkType: hard
 
-"@twurple/easy-bot@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/easy-bot@npm:7.1.0"
+"@twurple/easy-bot@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/easy-bot@npm:7.4.0"
   dependencies:
     "@d-fischer/logger": "npm:^4.2.1"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.0"
-    "@twurple/api": "npm:7.1.0"
-    "@twurple/auth": "npm:7.1.0"
-    "@twurple/chat": "npm:7.1.0"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/api": "npm:7.4.0"
+    "@twurple/auth": "npm:7.4.0"
+    "@twurple/chat": "npm:7.4.0"
+    "@twurple/common": "npm:7.4.0"
     tslib: "npm:^2.0.3"
-  checksum: 10c0/8e0dc58f58af274c426a8b06aed0f0161f8b128bb9297b8ed861139fa8f15d553310ab8c78d81ddbf2545168463b21e9cdf972c468509dc0da2d28e782f58a86
+  checksum: 10c0/c1dbad347a144264b0f77f318a66de3e6c992eabd81c96256b9b217533c96a096c63a323fd7cee5bb84b1d5481166224f697f63ccb41fb7654361313b2c78439
   languageName: node
   linkType: hard
 
@@ -994,18 +994,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/eventsub-base@npm:7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/eventsub-base@npm:7.1.0"
+"@twurple/eventsub-base@npm:7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/eventsub-base@npm:7.4.0"
   dependencies:
     "@d-fischer/logger": "npm:^4.2.1"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.0"
-    "@twurple/api": "npm:7.1.0"
-    "@twurple/auth": "npm:7.1.0"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/api": "npm:7.4.0"
+    "@twurple/auth": "npm:7.4.0"
+    "@twurple/common": "npm:7.4.0"
     tslib: "npm:^2.0.3"
-  checksum: 10c0/0c7a97e31577a668e4844e07b0a15217d77a11e9b24286a1780d7e475eecd0bc6687f19884a029dc96a7640053787b58b9790f1431dbe4ae28619918eb94f825
+  checksum: 10c0/266d599729c8970e3d7ad2f278f8bab9a188ca5b976fc826c0d6cea14a5d5b55cb21899ce1945bd186771bcbee03beba432f991180fbe89daedbca029011bc1a
   languageName: node
   linkType: hard
 
@@ -1029,21 +1029,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/eventsub-ws@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/eventsub-ws@npm:7.1.0"
+"@twurple/eventsub-ws@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/eventsub-ws@npm:7.4.0"
   dependencies:
     "@d-fischer/connection": "npm:^9.0.0"
     "@d-fischer/logger": "npm:^4.2.1"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.0"
-    "@twurple/auth": "npm:7.1.0"
-    "@twurple/common": "npm:7.1.0"
-    "@twurple/eventsub-base": "npm:7.1.0"
+    "@twurple/auth": "npm:7.4.0"
+    "@twurple/common": "npm:7.4.0"
+    "@twurple/eventsub-base": "npm:7.4.0"
     tslib: "npm:^2.0.3"
   peerDependencies:
-    "@twurple/api": 7.1.0
-  checksum: 10c0/15a1df5a53778e5f8a9a69c47f8ef903fc1220bd0665e7ba3400107a34790416032e826dc0dbe7880d12bf1a898605418eab590aad169364562029fec7c220e3
+    "@twurple/api": 7.4.0
+  checksum: 10c0/d15103d1301f917bba59443e24494ce933439ca5eb37f884248e026ece45f5ee94714c85e1d0edb0a41b4d0546aaa55987b3bc1f23933ba2cf8098257e6faac3
   languageName: node
   linkType: hard
 
@@ -1056,19 +1056,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twurple/pubsub@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@twurple/pubsub@npm:7.1.0"
+"@twurple/pubsub@npm:^7.4.0":
+  version: 7.4.0
+  resolution: "@twurple/pubsub@npm:7.4.0"
   dependencies:
     "@d-fischer/connection": "npm:^9.0.0"
     "@d-fischer/logger": "npm:^4.2.1"
     "@d-fischer/shared-utils": "npm:^3.6.1"
     "@d-fischer/typed-event-emitter": "npm:^3.3.0"
-    "@twurple/common": "npm:7.1.0"
+    "@twurple/common": "npm:7.4.0"
     tslib: "npm:^2.0.3"
   peerDependencies:
-    "@twurple/auth": 7.1.0
-  checksum: 10c0/9f4e0a0e062ae3d4aebe37cbeb3a6bc8239ed9c6cc5aca86e2d680c54b953dc9c40056884c656bf11036f6be02a407e8ce1d2d522ce43a147958fa158bdff036
+    "@twurple/auth": 7.4.0
+  checksum: 10c0/7af333c055b3da51cd5d0b4c411f891e42278e5f60813d4bc8c369fd82bcfe3f28e98fd3fc644ee9624e0c78adef52e3d8a8283ca8f10e4c87b4e0ec2233ff3f
   languageName: node
   linkType: hard
 
@@ -3724,13 +3724,13 @@ __metadata:
     "@repo/redis": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@repo/user-service": "npm:*"
-    "@twurple/api": "npm:^7.1.0"
-    "@twurple/auth": "npm:^7.1.0"
-    "@twurple/chat": "npm:^7.1.0"
-    "@twurple/easy-bot": "npm:^7.1.0"
+    "@twurple/api": "npm:^7.4.0"
+    "@twurple/auth": "npm:^7.4.0"
+    "@twurple/chat": "npm:^7.4.0"
+    "@twurple/easy-bot": "npm:^7.4.0"
     "@twurple/eventsub": "npm:^5.3.4"
-    "@twurple/eventsub-ws": "npm:^7.1.0"
-    "@twurple/pubsub": "npm:^7.1.0"
+    "@twurple/eventsub-ws": "npm:^7.4.0"
+    "@twurple/pubsub": "npm:^7.4.0"
     "@types/node": "npm:^20.12.12"
     dotenv: "npm:^16.4.5"
     esbuild: "npm:^0.21.3"
