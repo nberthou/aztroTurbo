@@ -43,10 +43,10 @@ export class TwitchBot {
     });
 
     this.pubSubClient = new PubSubClient({
-      authProvider: chatAuthProvider.getAuthProvider(),
+      authProvider: pubSubAuthProvider.getAuthProvider(),
     });
 
-    TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
+    TwitchBot.apiClient = new ApiClient({ authProvider: pubSubAuthProvider.getAuthProvider() });
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
     try {
       TwitchBot.listener.start();
@@ -62,10 +62,9 @@ export class TwitchBot {
 
   public async start(): Promise<void> {
     try {
-      
       await this.initializeClients();
       await handleMessages(this.chatClient);
-      // handleRedemptions(TwitchBot.listener, this.chatClient, this.channelId, this.channelName);
+      handleRedemptions(TwitchBot.listener, this.chatClient, this.channelId, this.channelName);
       handleCommunitySubs(this.chatClient);
       handleSubs(this.chatClient);
       handleResubs(this.chatClient);
