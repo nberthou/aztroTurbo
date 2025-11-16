@@ -46,7 +46,7 @@ export class TwitchBot {
       authProvider: pubSubAuthProvider.getAuthProvider(),
     });
 
-    TwitchBot.apiClient = new ApiClient({ authProvider: pubSubAuthProvider.getAuthProvider() });
+    TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
     try {
       TwitchBot.listener.start();
