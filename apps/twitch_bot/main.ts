@@ -18,8 +18,8 @@ export class TwitchBot {
   private readonly clientSecret: string;
   private readonly channelId: string;
   private readonly channelName: string;
-  public chatClient!: ChatClient;
-  private pubSubClient!: PubSubClient;
+  public streamerClient!: ChatClient;
+  private botClient!: ChatClient;
   static apiClient: ApiClient;
   static listener: EventSubWsListener;
   static bot: Bot;
@@ -32,27 +32,28 @@ export class TwitchBot {
   }
 
   private async initializeClients(): Promise<void> {
-    const pubSubAuthProvider = new TokenManager('pubSub');
-    const chatAuthProvider = new TokenManager('authProvider');
+    const botAuthProvider = new TokenManager('botToken');
+    const streamerAuthProvider = new TokenManager('streamerToken');
 
-    await Promise.all([pubSubAuthProvider.initialize('pubSub'), chatAuthProvider.initialize('authProvider')]);
+    await Promise.all([botAuthProvider.initialize('botToken'), streamerAuthProvider.initialize('streamerToken')]);
 
-    this.chatClient = new ChatClient({
-      authProvider: chatAuthProvider.getAuthProvider(),
+    this.streamerClient = new ChatClient({
+      authProvider: streamerAuthProvider.getAuthProvider(),
       channels: [this.channelName],
     });
 
-    this.pubSubClient = new PubSubClient({
-      authProvider: pubSubAuthProvider.getAuthProvider(),
+    this.botClient = new ChatClient({
+      authProvider: botAuthProvider.getAuthProvider(),
+      channels: [this.channelName],
     });
 
-    TwitchBot.apiClient = new ApiClient({ authProvider: chatAuthProvider.getAuthProvider() });
+    TwitchBot.apiClient = new ApiClient({ authProvider: streamerAuthProvider.getAuthProvider() });
     TwitchBot.listener = new EventSubWsListener({ apiClient: TwitchBot.apiClient });
     try {
       TwitchBot.listener.start();
       TwitchBot.bot = new Bot({
         channels: [this.channelName],
-        authProvider: chatAuthProvider.getAuthProvider(),
+        authProvider: botAuthProvider.getAuthProvider(),
       });
       console.log('EventSubWsListener démarré avec succès');
     } catch (error) {
@@ -63,13 +64,13 @@ export class TwitchBot {
   public async start(): Promise<void> {
     try {
       await this.initializeClients();
-      await handleMessages(this.chatClient);
-      handleRedemptions(TwitchBot.listener, this.chatClient, this.channelId, this.channelName);
-      handleCommunitySubs(this.chatClient);
-      handleSubs(this.chatClient);
-      handleResubs(this.chatClient);
-      handleSubGifts(this.chatClient);
-      handleRaids(this.chatClient);
+      await handleMessages(this.streamerClient);
+      handleRedemptions(TwitchBot.listener, this.streamerClient, this.channelId, this.channelName);
+      handleCommunitySubs(this.streamerClient);
+      handleSubs(this.streamerClient);
+      handleResubs(this.streamerClient);
+      handleSubGifts(this.streamerClient);
+      handleRaids(this.streamerClient);
 
       TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
         try {
@@ -106,7 +107,7 @@ export class TwitchBot {
               twitchMessage = `Bonjour à toutes et à tous, ce soir c'est ${currentGame} chez ${handler.broadcasterDisplayName} ! azgoldDance`;
           }
           redisPublisher.publish('discord-announcement', discordMessage);
-          await this.chatClient.say(this.channelName, twitchMessage);
+          await this.streamerClient.say(this.channelName, twitchMessage);
         } catch (error) {
           console.error("Erreur lors de la gestion de l'événement onStreamOnline:", error);
         }
@@ -114,17 +115,20 @@ export class TwitchBot {
 
       TwitchBot.listener.onStreamOffline(this.channelId, async () => {
         try {
-          await this.chatClient.say(this.channelName, 'Le stream est terminé ! A bientôt pour un nouveau stream ! azgoldLove');
+          await this.streamerClient.say(
+            this.channelName,
+            'Le stream est terminé ! A bientôt pour un nouveau stream ! azgoldLove'
+          );
         } catch (error) {
           console.error("Erreur lors de la gestion de l'événement onStreamOffline:", error);
         }
       });
-      this.chatClient.connect();
+      this.streamerClient.connect();
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }
 
-    this.chatClient.onAuthenticationSuccess(async () => {
+    this.streamerClient.onAuthenticationSuccess(async () => {
       await connectRedis();
       console.log('BOT_Aztro est connecté à Twitch !');
 
@@ -135,10 +139,8 @@ export class TwitchBot {
         }
       });
     });
-    this.chatClient.onAuthenticationFailure((error) => console.error('Erreur de connexion : ', error));
-    this.pubSubClient.onListenError((event, error, test) => {
-      console.error('ERREUR PUBSUB', error);
-    });
+    this.streamerClient.onAuthenticationFailure((error) => console.error('Erreur de connexion du streamer: ', error));
+    this.botClient.onAuthenticationFailure((error) => console.error('Erreur de connexion du streamer: ', error));
   }
 
   static async getLatestFollower(): Promise<string | undefined> {
