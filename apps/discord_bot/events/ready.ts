@@ -16,7 +16,6 @@ const getMembers = async (users: UserService[]): Promise<RankMember[]> => {
   const guild = DiscordBot.getGuild();
 
   const promises = users.map(async (user): Promise<RankMember> => {
-    console.log('user', user);
     try {
       if (user?.platform === 'TWITCH' && user.platformId) {
         let username = twitchUsernameCache.get(user.platformId);
@@ -71,7 +70,6 @@ const getMembers = async (users: UserService[]): Promise<RankMember[]> => {
 export const getUsersRankEmbed = async (users: UserService[]): Promise<EmbedBuilder> => {
   try {
     const rankMembers = await getMembers(users);
-    console.log('Rank Members récupérés:', rankMembers.length);
 
     const fields = rankMembers.map((member, index) => ({
       name: `${index + 1}. ${member.name}`,
@@ -122,9 +120,7 @@ const updateRankMessage = async (): Promise<void> => {
         embeds: [embed],
         components: [],
       });
-      console.log('Message de classement mis à jour');
     } else {
-      console.log('Nouveau message de classement envoyé');
     }
   } catch (error) {
     console.error('Erreur lors de la mise à jour du message de classement:', error);
@@ -140,7 +136,6 @@ const startRankUpdateScheduler = (): void => {
 
   rankUpdateInterval = setInterval(
     () => {
-      console.log('Mise à jour programmée du classement...');
       updateRankMessage();
     },
     5 * 60 * 1000
