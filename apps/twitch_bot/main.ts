@@ -64,13 +64,13 @@ export class TwitchBot {
   public async start(): Promise<void> {
     try {
       await this.initializeClients();
-      await handleMessages(this.streamerClient);
-      handleRedemptions(TwitchBot.listener, this.streamerClient, this.channelId, this.channelName);
-      handleCommunitySubs(this.streamerClient);
-      handleSubs(this.streamerClient);
-      handleResubs(this.streamerClient);
-      handleSubGifts(this.streamerClient);
-      handleRaids(this.streamerClient);
+      await handleMessages(this.botClient);
+      handleRedemptions(TwitchBot.listener, this.botClient, this.channelId, this.channelName);
+      handleCommunitySubs(this.botClient);
+      handleSubs(this.botClient);
+      handleResubs(this.botClient);
+      handleSubGifts(this.botClient);
+      handleRaids(this.botClient);
 
       TwitchBot.listener.onStreamOnline(this.channelId, async (handler) => {
         try {
@@ -124,13 +124,18 @@ export class TwitchBot {
         }
       });
       this.streamerClient.connect();
+      this.botClient.connect();
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }
 
+    this.botClient.onAuthenticationSuccess(() => {
+      console.log('Le client bot est connecté sur Twitch !');
+    });
+
     this.streamerClient.onAuthenticationSuccess(async () => {
       await connectRedis();
-      console.log('BOT_Aztro est connecté à Twitch !');
+      console.log('Le client streamer est connecté sur Twitch !');
 
       redisSubscriber.subscribe('twitch-id', async (twitchId) => {
         const user = await TwitchBot.apiClient.users.getUserById(twitchId);
@@ -140,7 +145,7 @@ export class TwitchBot {
       });
     });
     this.streamerClient.onAuthenticationFailure((error) => console.error('Erreur de connexion du streamer: ', error));
-    this.botClient.onAuthenticationFailure((error) => console.error('Erreur de connexion du streamer: ', error));
+    this.botClient.onAuthenticationFailure((error) => console.error('Erreur de connexion du bot: ', error));
   }
 
   static async getLatestFollower(): Promise<string | undefined> {
