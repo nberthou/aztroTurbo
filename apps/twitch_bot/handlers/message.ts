@@ -1,14 +1,15 @@
 import { ChatClient, ChatMessage } from '@twurple/chat';
 import { getAllCommands } from '@repo/db/command';
 import { UserService } from '@repo/user-service';
-import { handleStarsCommand } from '../commands/stars';
-import { handleCommandsListCommand } from '../commands/commands';
-import { handleCooldownCommand } from '../commands/cooldown';
 import { handleDeathCounterCommand } from '../commands/deathCounter';
+import { handleCommandsListCommand } from '../commands/commands';
 import { handleFollowageCommand } from '../commands/followage';
+import { handleGiveawayCommand } from '../commands/giveaway';
+import { handleCooldownCommand } from '../commands/cooldown';
 import { handleRouletteCommand } from '../commands/roulette';
 import { handleShifumiCommand } from '../commands/shifumi';
 import { handleAuCoinCommand } from '../commands/aucoin';
+import { handleStarsCommand } from '../commands/stars';
 import { TwitchBot } from '../main';
 
 export type CommandProps = {
@@ -35,6 +36,7 @@ const customCommands: Record<string, Function> = {
   roulette: handleRouletteCommand,
   shifumi: handleShifumiCommand,
   auCoin: handleAuCoinCommand,
+  giveaway: handleGiveawayCommand,
 };
 
 export async function handleMessages(chatClient: ChatClient): Promise<void> {
