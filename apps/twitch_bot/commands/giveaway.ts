@@ -7,7 +7,7 @@ let hasGiveawayRunning = false;
 let giveawayParticipants: Set<string> = new Set();
 let giveawayTimeout: NodeJS.Timeout | null = null;
 
-export const handleGiveawayCommand = async ({ message, channel, chatClient, isUserMod, displayName }: CommandProps) => {
+export const handleGiveawayCommand = async ({ message, channel, chatClient, isUserMod, displayName, userId }: CommandProps) => {
   const [, action] = message.split(' ');
 
   switch (action) {
@@ -42,6 +42,29 @@ export const handleGiveawayCommand = async ({ message, channel, chatClient, isUs
       break;
 
     case 'join':
+      const {
+        data: [follow],
+      } = await TwitchBot.apiClient.channels.getChannelFollowers(process.env.TWITCH_CHANNEL_ID!, userId);
+
+      if (!follow) {
+        return await chatClient.say(
+          channel,
+          `@${displayName}, tu dois être follow depuis au moins une semaine pour participer au giveaway ! azgoldHype`
+        );
+      }
+
+      const followDate = new Date(follow.followDate);
+      const now = new Date();
+      const diffTime = Math.abs(now.getTime() - followDate.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 7) {
+        return await chatClient.say(
+          channel,
+          `@${displayName}, tu dois être follow depuis au moins une semaine pour participer au giveaway ! azgoldHype`
+        );
+      }
+
       if (!hasGiveawayRunning) {
         return await chatClient.say(channel, "Il n'y a pas de giveaway en cours pour le moment. Restez à l'écoute ! azgoldSad");
       }
