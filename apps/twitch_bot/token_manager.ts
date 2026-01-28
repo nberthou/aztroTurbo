@@ -1,10 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import { RefreshingAuthProvider } from '@twurple/auth';
 import { ApiClient } from '@twurple/api';
 import { getTokenByName, upsertTokens } from '@repo/db/token';
 import { TwitchBot } from './main';
-
-const prisma = new PrismaClient();
 
 export class TokenManager {
   private authProvider: RefreshingAuthProvider;

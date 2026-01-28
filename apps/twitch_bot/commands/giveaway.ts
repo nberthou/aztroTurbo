@@ -3,8 +3,12 @@ import type { CommandProps } from '../handlers/message';
 
 const GIVEAWAY_DURATION = 5 * 60 * 1000; // 5 minutes
 
+interface Participant {
+  displayName: string;
+}
+
 let hasGiveawayRunning = false;
-let giveawayParticipants: Set<string> = new Set();
+let giveawayParticipants: Map<string, Participant> = new Map(); // clé = userId
 let giveawayTimeout: NodeJS.Timeout | null = null;
 
 export const handleGiveawayCommand = async ({ message, channel, chatClient, isUserMod, displayName, userId }: CommandProps) => {
@@ -29,14 +33,14 @@ export const handleGiveawayCommand = async ({ message, channel, chatClient, isUs
       giveawayTimeout = setTimeout(async () => {
         if (giveawayParticipants.size === 0) {
           await chatClient.say(channel, "Le giveaway est terminé, mais personne n'a participé... azgoldSad");
+          hasGiveawayRunning = false;
         } else {
-          const participantsArray = Array.from(giveawayParticipants);
+          const participantsArray = Array.from(giveawayParticipants.values());
           const winnerIndex = Math.floor(Math.random() * participantsArray.length);
           const winner = participantsArray[winnerIndex];
-          await chatClient.say(channel, `Félicitations à ${winner} qui remporte le giveaway ! azgoldDance`).then(() => {
-            hasGiveawayRunning = false;
-            giveawayParticipants.clear();
-          });
+          await chatClient.say(channel, `Félicitations à ${winner.displayName} qui remporte le giveaway ! azgoldDance`);
+          hasGiveawayRunning = false;
+          giveawayParticipants.clear();
         }
       }, GIVEAWAY_DURATION);
       break;
@@ -69,11 +73,11 @@ export const handleGiveawayCommand = async ({ message, channel, chatClient, isUs
         return await chatClient.say(channel, "Il n'y a pas de giveaway en cours pour le moment. Restez à l'écoute ! azgoldSad");
       }
 
-      if (giveawayParticipants.has(displayName)) {
+      if (giveawayParticipants.has(userId)) {
         return await chatClient.say(channel, `${displayName}, tu es déjà inscrit(e) au giveaway ! azgoldDance`);
       }
 
-      giveawayParticipants.add(displayName);
+      giveawayParticipants.set(userId, { displayName });
       await chatClient.say(channel, `${displayName}, tu es maintenant inscrit(e) au giveaway ! Bonne chance ! azgoldHF`);
       break;
   }

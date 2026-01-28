@@ -23,32 +23,36 @@ export function createDiscordUser(discordId: string) {
 }
 
 export async function mergeDiscordAndTwitchUser(discordId: string, twitchId: string) {
-  const twitchUser = await getUserByTwitchId(twitchId);
+  await prismaClient.$transaction(async (tx) => {
+    const twitchUser = await tx.user.findFirst({ where: { twitchId } });
 
-  if (twitchUser) {
-    const discordUser = await getUserByDiscordId(discordId);
-    await prismaClient.user.updateMany({
-      where: {
-        discordId: discordId,
-      },
-      data: {
-        twitchId: twitchUser.twitchId,
-        stars: twitchUser.stars + discordUser!.stars,
-      },
-    });
-    await prismaClient.user.deleteMany({
-      where: {
-        AND: [{ twitchId }, { discordId: { not: discordId } }],
-      },
-    });
-  } else {
-    await prismaClient.user.updateMany({
-      where: { discordId },
-      data: {
-        twitchId,
-      },
-    });
-  }
+    if (twitchUser) {
+      const discordUser = await tx.user.findFirst({ where: { discordId } });
+
+      if (!discordUser) {
+        throw new Error(`Utilisateur Discord ${discordId} introuvable`);
+      }
+
+      await tx.user.updateMany({
+        where: { discordId },
+        data: {
+          twitchId: twitchUser.twitchId,
+          stars: twitchUser.stars + discordUser.stars,
+        },
+      });
+
+      await tx.user.deleteMany({
+        where: {
+          AND: [{ twitchId }, { discordId: { not: discordId } }],
+        },
+      });
+    } else {
+      await tx.user.updateMany({
+        where: { discordId },
+        data: { twitchId },
+      });
+    }
+  });
 }
 
 export async function getUsersRank(page: number): Promise<User[]> {
