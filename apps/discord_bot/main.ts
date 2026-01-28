@@ -66,7 +66,7 @@ export class DiscordBot {
     await this.loadEvents();
 
     if (this.token) {
-      DiscordBot.client.login(this.token);
+      await DiscordBot.client.login(this.token);
     }
   }
 
